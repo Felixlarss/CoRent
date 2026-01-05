@@ -1,0 +1,15 @@
+services:
+  database:
+    image: "postgres:latest"
+    ports:
+      - 5433:5432
+
+    volumes:
+      - db-data:/var/lib/postgres/data/postgresql:rw
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      PGDATA: /var/lib/postgres/data/postgresql
+
+volumes:
+  db-data:
