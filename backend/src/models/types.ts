@@ -29,6 +29,14 @@ export interface AddMemberRoomConfirmation {
   member_room_added: Partial<MemberRoomRow>;
 }
 
+export interface UpdateMemberRoomConfirmation {
+  member_room_updated: Partial<MemberRoomRow>;
+}
+
+export interface DeleteMemberRoomConfirmation {
+  member_room_deleted: Partial<MemberRoomRow>;
+}
+
 export type Result<T> =
   | {
       ok: true;

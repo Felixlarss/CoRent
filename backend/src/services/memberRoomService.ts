@@ -5,6 +5,8 @@ import type {
   MemberRoom,
   AddMemberRoomConfirmation,
   Result,
+  UpdateMemberRoomConfirmation,
+  DeleteMemberRoomConfirmation,
 } from '../models/types.ts';
 
 export const createMemberRoom = async (
@@ -32,4 +34,49 @@ export const createMemberRoom = async (
   }
 };
 
-export default { createMemberRoom };
+export const updateMemberRoomById = async (
+  room_id: string,
+  member_id: string,
+): Promise<Result<UpdateMemberRoomConfirmation>> => {
+  try {
+    console.log('member_id:', member_id, 'room_id', room_id);
+    const { rows } = await db.query<MemberRoom>(
+      `  
+    UPDATE member_room
+    SET room_id = $1
+    WHERE member_id = $2
+`,
+      [room_id, member_id],
+    );
+    if (!rows[0]) throw new Error('update failed');
+    return {
+      ok: true,
+      data: { member_room_updated: { member_id: rows[0].member_id } },
+    };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+export const deleteMemberRoomById = async (
+  member_id: string,
+): Promise<Result<DeleteMemberRoomConfirmation>> => {
+  try {
+    const { rows } = await db.query(
+      `
+  DELETE FROM member_room
+  WHERE member_id = $1
+`,
+      [member_id],
+    );
+    if (!rows[0]) throw new Error('delete failed');
+    return {
+      ok: true,
+      data: { member_room_deleted: { member_id: rows[0].id } },
+    };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+export default { createMemberRoom, updateMemberRoomById, deleteMemberRoomById };

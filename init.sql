@@ -76,9 +76,9 @@ INSERT INTO
   room (room_name, room_m2, room_house_id)
 VALUES 
   ( 'Turtwig', 15.86, 1 ),
-  ( 'Sandshrew', 8.80, 1),
+  ( 'Sandshrew', 9.80, 1),
   ( 'Magikarp', 21.03, 1),
-  ( 'Gyarados', 10.91, 1),
+  ( 'Gyarados', 13.01, 1),
   ( 'Charizard', 8.35, 1 ),
   ( 'Snorlax', 8.25, 1),
   ( 'Garderob_left', 2.1, 1),
