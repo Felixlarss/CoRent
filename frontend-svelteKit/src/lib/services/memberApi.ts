@@ -1,12 +1,54 @@
-import type { Member, MemberRow } from '../types.ts';
+import type { MemberAuthResponse, MemberRow, MemberRowResponse } from '../types.ts';
 
 const url = 'http://localhost:3000/api';
 const noMemberErr = 'Error, No Member Found';
 
+// auth headers
+
+export function getAuthHeaders(): Headers {
+	const token: string | null = localStorage.getItem('auth_token');
+	const headers = new Headers({ 'Content-Type': 'application/json' });
+	if (token) headers.set('authorization', token);
+  console.log('headers',headers)
+	return headers;
+}
+
+// confirm member
+
+export async function confirmLogin(
+	member_name: string,
+	password: string
+): Promise<MemberAuthResponse> {
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/member/auth`, {
+		method: 'POST',
+		headers,
+		body: JSON.stringify({ member_name: member_name, password })
+	});
+	const body = (await response.json()) as MemberAuthResponse;
+
+	if (body.ok) {
+		localStorage.setItem('auth_token', body.data.token);
+	}
+  console.log('confirm login',body)
+	return body;
+}
+
+// get all member data
+
+export async function getMemberData(): Promise<MemberRowResponse> {
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/member/0`, { headers });
+	const json = await response.json();
+  const body = await json.data;
+	return body;
+}
+
 // get all members
 
 export async function getMembers(): Promise<MemberRow[]> {
-	const response = await fetch(`${url}/members`);
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/members`, { headers });
 
 	const json = await response.json();
 
@@ -21,7 +63,8 @@ export async function getMembers(): Promise<MemberRow[]> {
 // get a member by id
 
 export async function getMemberById(member_id: string): Promise<MemberRow> {
-	const response = await fetch(`${url}/member/${member_id}`);
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/member/${member_id}`, {headers});
 
 	const json = await response.json();
 
@@ -35,14 +78,16 @@ export async function getMemberById(member_id: string): Promise<MemberRow> {
 
 // post member
 
-export async function addMember(member_name: string) {
+export async function addMember(member_name: string, password: string, confirm_password: string) {
 	const response = await fetch(`${url}/member`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			member_name
+			member_name: member_name,
+			password,
+			confirm_password
 		})
 	});
 	if (!response.ok) throw new Error('post faled');

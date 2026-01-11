@@ -14,3 +14,21 @@ export async function getRooms(): Promise<RoomRow[]> {
 	const members: RoomRow[] = await json.data;
 	return members;
 }
+
+export async function addRoom(room_name: string, room_m2: number, room_house_id: string): Promise<RoomRow[]> {
+	const response = await fetch(`${url}/room`, {
+    method: "POST",
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			room_name,
+      room_m2,
+      room_house_id,
+		})
+	});
+	if (!response.ok) throw new Error('post faled');
+	const json = await response.json();
+	const data = json.data;
+	return data;
+}

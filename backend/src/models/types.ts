@@ -1,6 +1,11 @@
 export interface Member {
   member_id: string;
   member_name: string;
+  password_hash: string;
+}
+
+export interface WithAuth {
+  token: string;
 }
 
 export type MemberNameRow = {
@@ -11,6 +16,7 @@ export type MemberNameRow = {
 export type MemberRow = {
   member_id: string;
   member_name: string;
+  password_hash: string;
 };
 
 export interface AddMemberConfirmation {
@@ -37,6 +43,18 @@ export interface DeleteMemberRoomConfirmation {
   member_room_deleted: Partial<MemberRoomRow>;
 }
 
+export interface UpdateHouseConfirmation {
+  house_updated: Partial<HouseRow>;
+}
+
+export interface AddHouseConfirmation {
+  House_added: Partial<HouseRow>;
+}
+
+export interface AddRoomConfirmation {
+  Room_added: Partial<RoomRow>;
+}
+
 export type Result<T> =
   | {
       ok: true;
@@ -50,6 +68,13 @@ export interface House {
   house_rent: number;
   house_m2: number;
 }
+
+export type HouseRow = {
+  house_id: number;
+  house_name: string;
+  house_rent: number;
+  house_m2: number;
+};
 
 export type RoomRow = {
   room_id: string;

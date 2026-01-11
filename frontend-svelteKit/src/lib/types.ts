@@ -5,6 +5,19 @@ export type MemberRow = {
 	member_rent: string;
 };
 
+export type MemberAuthResponse =
+	| { ok: true; data: { token: string } & MemberRow }
+	| { ok: false; error: string };
+
+export type MemberRowResponse = { ok: true; data: MemberRow } | { ok: false; error: string };
+
+export type HouseRow = {
+	house_name: string;
+	house_id?: string;
+	house_m2: string;
+	house_rent: string;
+};
+
 export interface Member {
 	member_name: string;
 	member_id: string;
@@ -12,14 +25,14 @@ export interface Member {
 	member_rent: string;
 }
 
-export type RoomRow = {
-	room_name: string;
-	room_id: string;
-	room_m2: number;
-};
-
 export interface Room {
 	room_name: string;
 	room_id: string;
 	room_m2: number;
 }
+
+export type RoomRow = {
+	room_name: string;
+	room_id: string;
+	room_m2: number;
+};

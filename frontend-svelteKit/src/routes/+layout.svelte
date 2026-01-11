@@ -1,28 +1,39 @@
 <script lang="ts">
-	import './layout.css';
+	import '$lib/layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<ul class="w-fill m-5 flex justify-between gap-5 rounded-2xl border-2">
+	<ul class="w-fill m-5 flex justify-between gap-5 rounded-2xl">
 		<div class="flex flex-row items-center gap-5 p-2">
-			<li>
-				<a class="rounded-2xl p-2 hover:bg-blue-50" href="/">Home</a>
-			</li>
-			<li>
-				<a class="rounded-2xl p-2 hover:bg-blue-50" href="/add">Add</a>
-			</li>
-			<li>
-				<a class="rounded-2xl p-2 hover:bg-blue-50" href="/edit">Edit</a>
-			</li>
+			<div>
+				<a class="p-2 hover:underline" href="/home">Home</a>
+			</div>
+			<div>
+				<a class=" p-2 hover:underline" href="/home/add">Add</a>
+			</div>
+			<div>
+				<a class="p-2 hover:underline" href="/home/edit/member">Edit Members</a>
+			</div>
+			<div>
+				<a class="p-2 hover:underline" href="/home/edit/house">Edit House</a>
+			</div>
 		</div>
-		<li class="flex items-center p-2 align-middle">
-			<a href="/" class="flex justify-center align-middle text-3xl">CoRent</a>
-		</li>
+		<div class="m-2 flex items-center justify-center text-white">
+			<a href="/" class="logo flex justify-center align-middle text-3xl">CoRent</a>
+		</div>
 	</ul>
 
 	<link rel="icon" href={favicon} /></svelte:head
 >
 {@render children()}
+
+<style>
+	.logo {
+		text-shadow: var(--text-shadow-carved);
+		color: var(--bg-extra-dark);
+		font-weight: 900;
+	}
+</style>

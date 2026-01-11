@@ -235,7 +235,8 @@ SELECT
     )
     * (hc.house_rent / hc.house_m2),
     2
-  ) AS rent
+  ) AS rent,
+  hc.house_id AS house_id
 FROM member m
 LEFT JOIN member_private_sum mps
   ON m.member_id = mps.member_id
