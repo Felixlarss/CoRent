@@ -1,5 +1,7 @@
 <script lang="ts">
 	import '$lib/layout.css';
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
 	import { getMembers, getMemberById, getMemberData, deleteMemberById } from '$lib/services/memberApi';
 	import { addMemberRoom, deleteMemberRoomById } from '$lib/services/memberRoomApi';
 	import { getRooms } from '$lib/services/roomApi';
@@ -51,8 +53,8 @@
 								class="flex w-full cursor-pointer items-center justify-between p-2 align-middle"
 								onclick={async () => (selectedMember = await getMemberById(m.member_id))}
 							>
-								<span class="flex w-full text-start">{m.member_name}</span>
-								<span class="flex w-full text-start">{m.member_rent} kr</span>
+								<span class="flex w-full text-start whitespace-nowrap">{m.member_name}</span>
+								<span class="flex w-full text-start whitespace-nowrap">{m.member_rent} kr</span>
 								<span class="flex whitespace-nowrap">{m.member_m2} m²</span>
 							</button>
 							<button
@@ -100,8 +102,8 @@
 <form class="flex items-center gap-5 flex-col p-5">
     <h1>No house connected</h1>
       <div class="flex justify-center gap-5 flex-row">
-      <button class="p-2" onclick={window.location.href ='/make-house'}>Make House</button>
-      <button class="p-2" onclick={window.location.href ='/join-house'}>Join House</button>
+      <button class="p-2" onclick={goto(resolve('/make-house'))}>Make House</button>
+      <button class="p-2" onclick={goto(resolve('/join-house'))}>Join House</button>
       </div>
     </form>
   </div>
