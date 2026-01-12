@@ -1,53 +1,18 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import type { MemberRow } from '$lib/types';
-	import { getMembers, getMemberById } from '$lib/services/memberApi';
-
-	let members: MemberRow[] = $state([]);
-	let selectedMember: MemberRow | null = $state(null);
-
-	onMount(async () => {
-		members = await getMembers();
-	});
+import { goto } from "$app/navigation";
+import { resolve } from "$app/paths";
 </script>
 
-{#if !members.length}
-	<h1 class="text-center text-6xl font-bold">Members Loading...</h1>
-{:else}
-	<div class="flex w-full flex-col justify-center">
-		<div class="flex justify-center pt-10">
-			<ul class="flex w-1/3 flex-col space-y-5 rounded-2xl border-2 p-2 align-middle">
-				{#each members as m (m.member_id)}
-					<li class="flex flex-row p-2">
-						<button
-							type="button"
-							class="flex w-full cursor-pointer items-center justify-between gap-8 rounded-2xl border p-2 align-middle hover:bg-blue-50"
-							onclick={async () => (selectedMember = await getMemberById(m.member_id))}
-						>
-							{#if m.member_rent}
-								<span class="flex w-full text-start">{m.member_name}</span>
-								<span class="flex w-full text-start">{m.member_rent} kr</span>
-								<span class="flex whitespace-nowrap">{m.member_m2} m²</span>
-							{:else}
-								<span class="flex w-full text-start">{m.member_name}</span>
-								<p class="flex whitespace-nowrap">Member not assigned to room</p>
-								<span class="flex w-full text-start"></span>
-							{/if}
-						</button>
-					</li>
-				{/each}
-			</ul>
-		</div>
-
-		<div class="flex justify-center">
-			{#if selectedMember}
-				<div class="mt-6 w-1/8 rounded-2xl border-2 p-4">
-					<h2 class="mb-2 text-lg font-semibold">CoRentor</h2>
-					<p><strong>Name:</strong> {selectedMember.member_name}</p>
-					<p><strong>Rent:</strong> {selectedMember.member_rent} kr</p>
-					<p><strong>Area:</strong> {selectedMember.member_m2} m²</p>
-				</div>
-			{/if}
-		</div>
-	</div>
-{/if}
+ <div class="flex items-center flex-col">
+<div class="flex layer2 m-5 p-5 gap-10 flex-col w-2/5 items-center">
+    <h1 class="text-5xl text-center ">Welcome to CoRent</h1>
+    <p class="wrap-normal text-2xl text-center">CoRent is a tool for you and your roomates to split rent fairly</p>
+  </div>
+<div class="flex layer2 m-5 p-5 gap-3 flex-col w-min items-center">
+    <button onclick={goto(resolve("/learn-more"))} class="wrap-normal w-60 p-1 cursor-pointer text-center">Learn more about how the rentsplit is calculated</button>
+    <div class="flex flex-row gap-3">
+    <button onclick={goto(resolve("/login"))} class="whitespace-nowrap p-1 px-2 cursor-pointer text-center w-min">Log In</button>
+    <button onclick={goto(resolve("/register"))} class="whitespace-nowrap p-1 px-2 cursor-pointer text-center w-min">Register</button>
+    </div>
+  </div>
+</div>

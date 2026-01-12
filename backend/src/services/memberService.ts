@@ -1,19 +1,24 @@
 import 'dotenv';
+import jwt from 'jsonwebtoken';
 import { db } from '../database.ts';
 import type {
   Member,
   MemberRow,
   Result,
+  WithAuth,
   AddMemberConfirmation,
   DeleteMemberConfirmation,
   UpdateMemberConfirmation,
 } from '../models/types.ts';
+import bcrypt from 'bcryptjs';
 
 export const noMemberFoundErr = 'Member not found';
 
 // get all members
 
-export const getAllMembers = async (): Promise<Result<Member[]>> => {
+export const getAllMembers = async (
+  house_id: string,
+): Promise<Result<Member[]>> => {
   try {
     const { rows } = await db.query<Member>(
       `
@@ -73,14 +78,16 @@ SELECT
     )
     * (hc.house_rent / hc.house_m2),
     2
-  ) AS member_rent
+  ) AS member_rent,
+  hc.house_id AS house_id
 FROM member m
 LEFT JOIN member_private_sum mps
   ON m.member_id = mps.member_id
 LEFT JOIN house_common hc
   ON hc.house_id = mps.house_id
-ORDER BY m.member_id;
+WHERE hc.house_id = $1;
 `,
+      [house_id],
     );
     return { ok: true, data: rows };
   } catch (error) {
@@ -152,7 +159,8 @@ SELECT
     )
     * (hc.house_rent / hc.house_m2),
     2
-  ) AS member_rent
+  ) AS member_rent,
+  hc.house_id AS house_id
 FROM member m
 LEFT JOIN member_private_sum mps
   ON m.member_id = mps.member_id
@@ -173,17 +181,19 @@ WHERE m.member_id = $1;
 
 export const createMember = async (
   member_name: string,
+  password: string,
 ): Promise<Result<AddMemberConfirmation>> => {
   try {
+    const hash = await bcrypt.hash(password, 10);
     const { rows } = await db.query<Member>(
       `
     INSERT INTO 
-      member (member_name) 
+      member (member_name, password_hash)
     VALUES 
-      ( $1 )
-    RETURNING member_id AS member_id, member_name AS member_name;
+      ( $1, $2 )
+    RETURNING member_id, member_name;
 `,
-      [member_name],
+      [member_name, hash],
     );
     if (!rows[0]) throw new Error(noMemberFoundErr);
     return {
@@ -207,7 +217,7 @@ export const updateMemberById = async (
       `  
     UPDATE member
     SET
-      member_name = $1,
+      member_name = $1
     WHERE member_id = $2
     RETURNING member_id;
 `,
@@ -244,11 +254,43 @@ export const deleteMemberById = async (
   }
 };
 
+// auth
+
+export const confirmMember = async (
+  member_name: string,
+  password: string,
+): Promise<Result<Partial<MemberRow & WithAuth>>> => {
+  // const hash = await bcrypt.compare(password, );
+  try {
+    const { rows } = await db.query<MemberRow>(
+      `
+    SELECT member_id, member_name, password_hash FROM member WHERE member_name = $1;
+`,
+      [member_name],
+    );
+    if (!rows[0]) return { ok: false, error: noMemberFoundErr };
+    const confirmPassword = await bcrypt.compare(
+      password,
+      rows[0].password_hash,
+    );
+
+    if (!confirmPassword)
+      return { ok: false, error: 'password does not mach name' };
+    const secret = process.env.JWT_HASH;
+    if (!secret) throw new Error('JWT_HASH is not in .env');
+    const token = jwt.sign({ member_id: rows[0].member_id }, secret);
+    return { ok: true, data: { member_id: rows[0].member_id, token } };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
 export default {
   getAllMembers,
   getMemberById,
   createMember,
   deleteMemberById,
   updateMemberById,
+  confirmMember,
   noMemberFoundErr,
 };

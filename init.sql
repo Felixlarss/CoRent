@@ -10,7 +10,7 @@ CREATE TABLE house (
 CREATE TABLE room (
   room_id SERIAL NOT NULL PRIMARY KEY,
   room_house_id INT NOT NULL,
-  room_name VARCHAR(50) NOT NULL UNIQUE,
+  room_name VARCHAR(50) NOT NULL,
   room_m2 DECIMAL NOT NULL,
   CONSTRAINT fk_house 
     FOREIGN KEY (room_house_id)
@@ -76,9 +76,9 @@ INSERT INTO
   room (room_name, room_m2, room_house_id)
 VALUES 
   ( 'Turtwig', 15.86, 1 ),
-  ( 'Sandshrew', 8.80, 1),
+  ( 'Sandshrew', 9.80, 1),
   ( 'Magikarp', 21.03, 1),
-  ( 'Gyarados', 10.91, 1),
+  ( 'Gyarados', 13.01, 1),
   ( 'Charizard', 8.35, 1 ),
   ( 'Snorlax', 8.25, 1),
   ( 'Garderob_left', 2.1, 1),
@@ -235,7 +235,8 @@ SELECT
     )
     * (hc.house_rent / hc.house_m2),
     2
-  ) AS rent
+  ) AS rent,
+  hc.house_id AS house_id
 FROM member m
 LEFT JOIN member_private_sum mps
   ON m.member_id = mps.member_id
