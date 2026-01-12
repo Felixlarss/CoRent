@@ -22,8 +22,7 @@
 	});
 </script>
 
-{#if isLoading}
-{:else if !! member && !!member.house_id}
+{#if !! member && !!member.house_id}
   {#if !members.length}
     <h1 class="text-center text-6xl font-bold">Members Loading...</h1>
   {:else}
