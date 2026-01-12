@@ -10,7 +10,7 @@ CREATE TABLE house (
 CREATE TABLE room (
   room_id SERIAL NOT NULL PRIMARY KEY,
   room_house_id INT NOT NULL,
-  room_name VARCHAR(50) NOT NULL UNIQUE,
+  room_name VARCHAR(50) NOT NULL,
   room_m2 DECIMAL NOT NULL,
   CONSTRAINT fk_house 
     FOREIGN KEY (room_house_id)

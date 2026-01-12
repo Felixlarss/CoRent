@@ -3,6 +3,7 @@ export type MemberRow = {
 	member_id: string;
 	member_m2: string;
 	member_rent: string;
+  house_id: number;
 };
 
 export type MemberAuthResponse =

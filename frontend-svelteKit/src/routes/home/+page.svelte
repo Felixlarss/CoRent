@@ -7,15 +7,21 @@
 	let members: MemberRow[] = $state([]);
 	let selectedMember: MemberRow | null = $state(null);
   let member: MemberRow | null = $state(null);
+	let isLoading = $state(true);
 
 	onMount(async () => {
+    try {
 		members = await getMembers();
     member = await getMemberData();
-    await console.log(member.house_id)
+    } finally {
+      isLoading = false
+    }
+
 	});
 </script>
 
-{#if member?.house_id}
+{#if isLoading}
+{:else if !! member && !!member.house_id}
   {#if !members.length}
     <h1 class="text-center text-6xl font-bold">Members Loading...</h1>
   {:else}
@@ -54,14 +60,8 @@
       </div>
     </div>
   {/if}
+{:else if member}
+  {window.location.href='/new-user'}
 {:else}
-<div class="flex w-full justify-center pt-10">
-<form class="flex items-center gap-5 flex-col p-5">
-    <h1>No house connected</h1>
-      <div class="flex justify-center gap-5 flex-row">
-      <button class="p-2" onclick={window.location.href ='/make-house'}>Make House</button>
-      <button class="p-2">Join House</button>
-      </div>
-    </form>
-  </div>
+  {window.location.href='/'}
 {/if}

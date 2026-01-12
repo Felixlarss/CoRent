@@ -2,20 +2,16 @@
 	import { onMount } from 'svelte';
 	import { getHouseById } from '$lib/services/houseApi';
 	import { getRooms } from '$lib/services/roomApi';
-	import type { HouseRow, RoomRow } from '$lib/types';
+  import { getMemberData } from '$lib/services/memberApi';
+	import type { HouseRow, RoomRow, MemberRow } from '$lib/types';
 
-	let house_id: string = '1';
 	let house: HouseRow | null = $state(null);
 	let rooms: RoomRow[] = $state([]);
   let member: MemberRow = $state()
 
 	onMount(async () => {
     member = await getMemberData();
-		house = await getHouseById(house_id);
-		if (!house) {
-			return console.error('no house found');
-		}
-		console.log(house);
+		house = await getHouseById(member?.house_id);
 		rooms = await getRooms();
 	});
 </script>
@@ -50,7 +46,7 @@
     <h1>No house connected</h1>
       <div class="flex justify-center gap-5 flex-row">
       <button class="p-2" onclick={window.location.href ='/make-house'}>Make House</button>
-      <button class="p-2">Join House</button>
+      <button class="p-2" onclick={window.location.href ='/join-house'}>Join House</button>
       </div>
     </form>
   </div>

@@ -39,7 +39,6 @@ export const updateMemberRoomById = async (
   member_id: string,
 ): Promise<Result<UpdateMemberRoomConfirmation>> => {
   try {
-    console.log('member_id:', member_id, 'room_id', room_id);
     const { rows } = await db.query<MemberRoom>(
       `  
     UPDATE member_room

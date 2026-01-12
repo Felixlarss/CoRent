@@ -26,21 +26,22 @@ async function addEmptyRoom() {
 
 	onMount(async () => {
     addEmptyRoom()
+    member = await getMemberData()
 	});
 
-async function handleSubmit(event: submitEvent) {
+async function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
-    member = await getMemberData()
     house_id = await addHouse(house_name, house_rent, house_m2);
     rooms.forEach( async r => {
       room_id = await addRoom(r.room_name, r.room_m2, house_id.House_added?.house_id)
-    console.log(member.member_id)
     if (r.room_id === 0)
       row = await addMemberRoom(room_id.Room_added?.room_id, member.member_id)
     });
 }
 
 </script>
+
+{#if !member?.house_id}
 
 <div class="flex w-full justify-center">
 	<form class="flex w-1/4 flex-col items-center justify-center py-5">
@@ -68,3 +69,6 @@ async function handleSubmit(event: submitEvent) {
 		<button onclick={handleSubmit} class="my-3 p-2">Add</button>
 	</form>
 </div>
+{:else}
+  {window.location.href='/home'}
+{/if}

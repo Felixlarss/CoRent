@@ -34,7 +34,6 @@ function getMemberIdFromBody(body: { member: Partial<MemberRow> }) {
 export const getAllMembers = async (req: Request, res: Response) => {
   try {
     const house_id = await req.body.member.house_id;
-    console.log(req.body);
     const rows = await memberService.getAllMembers(house_id);
     return res.status(201).json(rows);
   } catch (error) {

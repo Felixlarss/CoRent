@@ -27,7 +27,6 @@ export const addHouse = async (req: Request, res: Response) => {
   try {
     const { house_name, house_rent, house_m2 } = req.body;
     const rows = await houseService.addHouse(house_name, house_rent, house_m2);
-    console.log({ rows });
     return res.status(201).json(rows);
   } catch (error) {
     return res.status(500).json({ error });

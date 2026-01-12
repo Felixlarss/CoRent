@@ -12,9 +12,6 @@
 				<a class="p-2 hover:underline" href="/home">Home</a>
 			</div>
 			<div>
-				<a class=" p-2 hover:underline" href="/home/add">Add</a>
-			</div>
-			<div>
 				<a class="p-2 hover:underline" href="/home/edit/member">Edit Members</a>
 			</div>
 			<div>

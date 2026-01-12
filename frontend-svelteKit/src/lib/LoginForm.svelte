@@ -26,6 +26,7 @@
         confirmPassword,
       );
       if (!create_res.ok) error.error = create_res.error;
+      console.log(password)
     } else {
       // logIn form
       const confirm_response = await confirmLogin(member_name, password);
@@ -42,7 +43,7 @@
       if (!error.error) {
         loginRedirect = "Loggin in...";
         setTimeout(() => {
-          window.location.href ='/home';
+          window.location.href ='/new-user';
         }, 1000);
       }
     }
@@ -84,6 +85,11 @@
     {/if}
     <div class="flex justify-between">
       <button type="submit" class="w-fit p-2"
+        onclick={() => {
+          if (signUpForm){
+          alert('SignUp Confirmed')
+          }
+        }}
         >{signUpForm ? "Sign up" : "Log in"}</button
       >
       <button

@@ -20,7 +20,7 @@ export type MemberRow = {
 };
 
 export interface AddMemberConfirmation {
-  member_added: Partial<MemberNameRow>;
+  member_added: Partial<MemberRow>;
 }
 
 export interface DeleteMemberConfirmation {

@@ -10,7 +10,7 @@ import {
 const router = Router();
 
 router.get('/houses', authMiddleware, getAllHouses);
-router.get('/house/:house_id', authMiddleware, getHouseById);
+router.get('/house/:house_id', getHouseById);
 router.patch('/house/:house_id', authMiddleware, updateHouse);
 router.post('/house', addHouse);
 

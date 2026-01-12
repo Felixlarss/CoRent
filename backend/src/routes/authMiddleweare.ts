@@ -21,13 +21,11 @@ const authMiddleware = async (
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
-  console.log({ authorization });
   if (!authorization) {
     return res.status(401).json({ error: 'invalid token' });
   }
   try {
     const decoded = jwt.verify(
-      // authorization.replace('Bearer ', ''),
       authorization,
       process.env.JWT_HASH!,
     ) as TokenPayLoad;

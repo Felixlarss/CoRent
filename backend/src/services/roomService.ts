@@ -7,13 +7,33 @@ import type {
   AddRoomConfirmation,
 } from '../models/types.ts';
 
-export const getAllRooms = async (): Promise<Result<Room[]>> => {
+export const getAllRooms = async (
+  room_house_id: string,
+): Promise<Result<Room[]>> => {
   try {
     const { rows } = await db.query<Room>(
       `
-      SELECT room_id, room_name, room_m2 FROM room;
+      SELECT room_id, room_name, room_m2 FROM room where room_house_id = $1;
 `,
+      [room_house_id],
     );
+    return { ok: true, data: rows };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+export const getRoomsById = async (
+  room_house_id: string,
+): Promise<Result<Room[]>> => {
+  try {
+    const { rows } = await db.query<Room>(
+      `
+SELECT * from room WHERE room_house_id = $1
+`,
+      [room_house_id],
+    );
+    if (!rows[0]) throw new Error('no room found');
     return { ok: true, data: rows };
   } catch (error) {
     return { ok: false, error };
@@ -51,7 +71,6 @@ RETURNING room_id
 `,
       [room_name, room_m2, room_house_id],
     );
-    console.log({ rows });
     if (!rows[0]) throw new Error('add failed services');
     return { ok: true, data: { Room_added: { room_id: rows[0].room_id } } };
   } catch (error) {
@@ -59,4 +78,4 @@ RETURNING room_id
   }
 };
 
-export default { getAllRooms, getRoomById, addRoom };
+export default { getAllRooms, getRoomById, addRoom, getRoomsById };

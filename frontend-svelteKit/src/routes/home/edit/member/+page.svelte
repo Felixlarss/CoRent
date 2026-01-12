@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '$lib/layout.css';
-	import { getMembers, getMemberById, deleteMemberById } from '$lib/services/memberApi';
+	import { getMembers, getMemberById, getMemberData, deleteMemberById } from '$lib/services/memberApi';
 	import { addMemberRoom, deleteMemberRoomById } from '$lib/services/memberRoomApi';
 	import { getRooms } from '$lib/services/roomApi';
 	import type { MemberRow, RoomRow } from '$lib/types';
@@ -101,7 +101,7 @@
     <h1>No house connected</h1>
       <div class="flex justify-center gap-5 flex-row">
       <button class="p-2" onclick={window.location.href ='/make-house'}>Make House</button>
-      <button class="p-2">Join House</button>
+      <button class="p-2" onclick={window.location.href ='/join-house'}>Join House</button>
       </div>
     </form>
   </div>

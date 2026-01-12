@@ -1,18 +1,34 @@
 import type { RoomRow } from '$lib/types';
-
+import { getAuthHeaders } from './memberApi';
 const url: string = 'http://localhost:3000/api';
 const noRoomErr = 'Error, No room Found';
 
 export async function getRooms(): Promise<RoomRow[]> {
-	const response = await fetch(`${url}/rooms`);
-
-	const json = await response.json();
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/rooms`, {headers});
+	
+  const json = await response.json();
 
 	if (!response.ok || !json.ok) {
 		throw new Error(noRoomErr);
 	}
-	const members: RoomRow[] = await json.data;
-	return members;
+
+	const rooms: RoomRow[] = await json.data;
+	return rooms;
+}
+
+export async function getRoomsById(room_house_id: string): Promise<RoomRow[]> {
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/rooms/${room_house_id}`, {headers});
+	
+  const json = await response.json();
+
+	if (!response.ok || !json.ok) {
+		throw new Error(noRoomErr);
+	}
+
+	const rooms: RoomRow[] = await json.data;
+	return rooms;
 }
 
 export async function addRoom(room_name: string, room_m2: number, room_house_id: string): Promise<RoomRow[]> {
