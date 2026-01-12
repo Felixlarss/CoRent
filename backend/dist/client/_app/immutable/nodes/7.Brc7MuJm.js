@@ -1,0 +1,1 @@
+import{f as a,a as e}from"../chunks/Cmn3p9sG.js";import"../chunks/Dq5lhmmf.js";var t=a('<div class="flex justify-center"><h1>Learn More</h1></div>');function p(o){var r=t();e(o,r)}export{p as component};
