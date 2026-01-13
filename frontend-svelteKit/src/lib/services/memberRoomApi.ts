@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api';
+const url = import.meta.env.VITE_API_URL;
 
 export async function addMemberRoom(room_id: string, member_id: string) {
 	const response = await fetch(`${url}/member_room`, {
