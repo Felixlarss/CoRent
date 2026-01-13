@@ -1,6 +1,6 @@
 import type { RoomRow } from '$lib/types';
 import { getAuthHeaders } from './memberApi';
-const url = import.meta.env.VITE_API_URL;
+const url = process.env.VITE_API_URL;
 const noRoomErr = 'Error, No room Found';
 
 export async function getRooms(): Promise<RoomRow[]> {
