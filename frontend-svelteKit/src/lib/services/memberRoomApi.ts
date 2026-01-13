@@ -1,7 +1,7 @@
 const url = process.env.VITE_API_URL;
 
 export async function addMemberRoom(room_id: string, member_id: string) {
-	const response = await fetch(`${url}/member_room`, {
+	const response = await fetch(`/api/member_room`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ export async function addMemberRoom(room_id: string, member_id: string) {
 }
 
 export async function editMemberRoomById(member_id: string, room_id: string) {
-	const response = await fetch(`${url}/member_room/${member_id}`, {
+	const response = await fetch(`/api/member_room/${member_id}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export async function editMemberRoomById(member_id: string, room_id: string) {
 }
 
 export async function deleteMemberRoomById(member_id: string) {
-	const response = await fetch(`${url}/member_room/${member_id}`, { method: 'DELETE' });
+	const response = await fetch(`/api/member_room/${member_id}`, { method: 'DELETE' });
 	if (!response.ok) throw new Error('delete faled');
 	return response;
 }
