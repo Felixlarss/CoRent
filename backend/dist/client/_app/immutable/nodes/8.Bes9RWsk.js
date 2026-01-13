@@ -1,1 +1,0 @@
-import{f as m,a as i}from"../chunks/Cmn3p9sG.js";import"../chunks/Dq5lhmmf.js";import{c as p,r as t}from"../chunks/Aicq15hJ.js";import{L as s}from"../chunks/D7KLaAkb.js";var e=m("<div><!></div>");function c(r){var o=e(),a=p(o);s(a,{signUpForm:!1}),t(o),i(r,o)}export{c as component};
