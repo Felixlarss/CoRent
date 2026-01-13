@@ -1,7 +1,5 @@
 <script lang="ts">
 	import '$lib/layout.css';
-  import { goto } from '$app/navigation';
-  import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
 	import type { MemberRow } from '$lib/types';
 	import { getMembers, getMemberData, getMemberById } from '$lib/services/memberApi';
@@ -62,7 +60,7 @@
     </div>
   {/if}
 {:else if member}
-  {goto(resolve('/new-user'))}
+  {window.location.href='/new-user'}
 {:else}
-  {goto(resolve('/'))}
+  {window.location.href='/'}
 {/if}

@@ -2,8 +2,7 @@
 
 import type { RoomRow, MemberRow, HouseRow } from '$lib/types';
 import { onMount } from 'svelte';
-import { goto } from '$app/navigation';
-import { resolve } from '$app/paths';
+
 import { addMemberRoom } from '../../lib/services/memberRoomApi.ts'
 import { getMemberData } from '../../lib/services/memberApi.ts'
 	import { getRooms, getRoomsById } from '$lib/services/roomApi.ts';
@@ -32,11 +31,14 @@ async function handleSubmit1(event: SubmitEvent) {
 }
 
 async function handleSubmit2(event: SubmitEvent) {
+  try {
+
   event.preventDefault();
   room_ids.forEach(r => {
     addMemberRoom(r, member?.member_id)
   });
-goto(resolve('/home'))
+}} finally {
+  window.location.href='/home'
 }
 
 </script>
@@ -72,5 +74,5 @@ goto(resolve('/home'))
   </div>
 {/if}
 {:else}
-  {goto(resolve('/home'))}
+  {window.location.href='/home'}
 {/if}

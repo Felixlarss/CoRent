@@ -2,17 +2,15 @@
 
 import type { RoomRow, MemberRow } from '$lib/types';
 import { onMount } from 'svelte';
-import { goto } from '$app/navigation';
-import { resolve } from '$app/paths';
 
 import { addHouse } from '../../lib/services/houseApi.ts'
 import { addMemberRoom } from '../../lib/services/memberRoomApi.ts'
 import { getMemberData } from '../../lib/services/memberApi.ts'
 import { addRoom } from '../../lib/services/roomApi.ts'
 
-let house_name: string | null = $state(null)
-let house_rent: number | null = $state(null)
-let house_m2: number | null = $state(null)
+let house_name: string = $state()
+let house_rent: number = $state()
+let house_m2: number = $state()
 
 let rooms: RoomRow[] = $state([])
 let room_id: string = $state("")
@@ -39,7 +37,6 @@ async function handleSubmit(event: SubmitEvent) {
     if (r.room_id === 0)
       row = await addMemberRoom(room_id.Room_added?.room_id, member.member_id)
     });
-   await goto(resolve('/home'))
 }
 
 </script>
@@ -73,5 +70,5 @@ async function handleSubmit(event: SubmitEvent) {
 	</form>
 </div>
 {:else}
-{goto(resolve('/home'))}
+  {window.location.href='/home'}
 {/if}
