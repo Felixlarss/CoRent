@@ -40,6 +40,7 @@
 		"vite": "^7.2.6"
 	},
 	"dependencies": {
+		"dotenv": "^17.2.3",
 		"goto": "^0.2.0",
 		"navigation": "^6.3.1",
 		"svelte-spa-router": "^4.0.1"
