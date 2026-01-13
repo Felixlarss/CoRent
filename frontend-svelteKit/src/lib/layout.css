@@ -107,3 +107,18 @@ form {
 	color: var(--text);
 }
 
+.layer2 {
+	background-color: var(--bg);
+	box-shadow: var(--shadow-m);
+	border-radius: 10px;
+	color: var(--text);
+}
+
+.layer3 {
+	background-color: var(--bg-light);
+	box-shadow: var(--shadow-m);
+	border-radius: 10px;
+	color: var(--text);
+	font-weight: 700;
+	text-shadow: var(--text-shadow-m);
+}
