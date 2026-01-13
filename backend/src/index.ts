@@ -19,6 +19,11 @@ app.use(
   }),
 );
 
+app.use('/api', memberRoutes);
+app.use('/api', roomRoutes);
+app.use('/api', memberRoomRoutes);
+app.use('/api', houseRoutes);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -29,11 +34,6 @@ app.get('*', (req, res) => {
 });
 
 app.use(express.json());
-
-app.use('/api', memberRoutes);
-app.use('/api', roomRoutes);
-app.use('/api', memberRoomRoutes);
-app.use('/api', houseRoutes);
 
 app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);
