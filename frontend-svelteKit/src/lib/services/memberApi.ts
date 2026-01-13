@@ -1,6 +1,6 @@
 import type { MemberAuthResponse, MemberRow, MemberRowResponse } from '../types.ts';
 
-const url = import.meta.env.VITE_API_URL;
+const url = process.env.VITE_API_URL;
 const noMemberErr = 'Error, No Member Found';
 
 // auth headers

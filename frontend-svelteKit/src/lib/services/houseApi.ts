@@ -1,6 +1,6 @@
 import type { HouseRow } from '../types.ts';
 
-const url = import.meta.env.VITE_API_URL;
+const url = process.env.VITE_API_URL;
 const noHouseErr = 'Error, No House Found';
 
 export async function getHouses(): Promise<HouseRow[]> {
