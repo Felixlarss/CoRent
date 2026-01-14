@@ -38,13 +38,15 @@ async function addEmptyRoom() {
 
 async function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
+      if (!member.house_id) {
     house_id = await addHouse(house_name, house_rent, house_m2);
     rooms.forEach( async r => {
       room_id = await addRoom(r.room_name, r.room_m2, house_id.House_added?.house_id)
     if (r.room_id === 0)
       row = await addMemberRoom(room_id.Room_added?.room_id, member.member_id)
     });
-  goto(resolve('/home'))
+  }
+  await goto(resolve('/home'))
 }
 
 </script>

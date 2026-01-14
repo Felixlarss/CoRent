@@ -31,17 +31,20 @@ let submitted: boolean = $state(false)
 
 async function handleSubmit1(event: SubmitEvent) {
   event.preventDefault();
-  rooms = await getRoomsById(house_id)
-  house = await getHouseById(house_id)
-  submitted = true
+  if (!member.house_id) {
+    rooms = await getRoomsById(house_id)
+    house = await getHouseById(house_id)
+    submitted = true
+  }
 }
 
 async function handleSubmit2(event: SubmitEvent) {
-
   event.preventDefault();
-  room_ids.forEach(r => {
-    addMemberRoom(r, member?.member_id)
-  });
+  if (!member.house_id) {
+    room_ids.forEach(r => {
+      addMemberRoom(r, member?.member_id)
+    });
+  }
   goto(resolve('/home'))
 }
 
