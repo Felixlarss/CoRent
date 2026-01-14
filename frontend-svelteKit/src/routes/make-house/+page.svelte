@@ -8,6 +8,9 @@ import { addMemberRoom } from '../../lib/services/memberRoomApi.ts'
 import { getMemberData } from '../../lib/services/memberApi.ts'
 import { addRoom } from '../../lib/services/roomApi.ts'
 
+import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
+
 let house_name: string = $state()
 let house_rent: number = $state()
 let house_m2: number = $state()
@@ -27,6 +30,10 @@ async function addEmptyRoom() {
 	onMount(async () => {
     addEmptyRoom()
     member = await getMemberData()
+    house_id = member?.house_id
+    if (member?.house_id) {
+      goto(resolve('/home'))
+    }
 	});
 
 async function handleSubmit(event: SubmitEvent) {
@@ -37,6 +44,7 @@ async function handleSubmit(event: SubmitEvent) {
     if (r.room_id === 0)
       row = await addMemberRoom(room_id.Room_added?.room_id, member.member_id)
     });
+  goto(resolve('/home'))
 }
 
 </script>

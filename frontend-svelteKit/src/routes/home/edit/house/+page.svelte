@@ -4,18 +4,24 @@
 	import { getRooms } from '$lib/services/roomApi';
   import { getMemberData } from '$lib/services/memberApi';
 	import type { HouseRow, RoomRow, MemberRow } from '$lib/types';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	let house: HouseRow | null = $state(null);
+  let house_id: number | null = $state(null)
 	let rooms: RoomRow[] = $state([]);
   let member: MemberRow = $state()
 
 	onMount(async () => {
     member = await getMemberData();
+    house_id = member.house_id
 		house = await getHouseById(member?.house_id);
 		rooms = await getRooms();
+    if (!house_id) {
+      goto(resolve('/new-user'))
+    }
 	});
 </script>
-{#if member?.house_id}
 {#if house}
 	<p class="flex justify-center text-4xl font-bold">
 		{house!.house_name}
@@ -25,6 +31,7 @@
 <div class="flex w-full flex-col justify-center">
 	<div class="flex justify-center gap-5 pt-5">
 		<ul class="flex w-1/3 flex-col space-y-5 p-4 align-middle">
+			<p class="flex w-full text-start">House Key: {house_id}</p>
 			{#each rooms as r (r.room_id)}
 				<li class="flex flex-row">
 					<div class="flex w-full flex-col">
@@ -40,14 +47,3 @@
 		</ul>
 	</div>
 </div>
-{:else}
-<div class="flex w-full justify-center pt-10">
-<form class="flex items-center gap-5 flex-col p-5">
-    <h1>No house connected</h1>
-      <div class="flex justify-center gap-5 flex-row">
-      <button class="p-2" onclick={window.location.href ='/make-house'}>Make House</button>
-      <button class="p-2" onclick={window.location.href ='/join-house'}>Join House</button>
-      </div>
-    </form>
-  </div>
-{/if}

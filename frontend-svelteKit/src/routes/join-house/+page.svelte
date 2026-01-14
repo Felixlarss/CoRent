@@ -5,8 +5,11 @@ import { onMount } from 'svelte';
 
 import { addMemberRoom } from '../../lib/services/memberRoomApi.ts'
 import { getMemberData } from '../../lib/services/memberApi.ts'
-	import { getRooms, getRoomsById } from '$lib/services/roomApi.ts';
-	import { getHouseById } from '$lib/services/houseApi.ts';
+import { getRoomsById } from '$lib/services/roomApi.ts';
+import { getHouseById } from '$lib/services/houseApi.ts';
+
+import { goto } from '$app/navigation';
+import { resolve } from '$app/paths';
 
 let house: HouseRow = $state()
 let house_id: string = $state("")
@@ -21,6 +24,9 @@ let submitted: boolean = $state(false)
 
 	onMount(async () => {
     member = await getMemberData()
+    if (member?.house_id) {
+      goto(resolve('/home'))
+    }
 	});
 
 async function handleSubmit1(event: SubmitEvent) {
@@ -36,12 +42,10 @@ async function handleSubmit2(event: SubmitEvent) {
   room_ids.forEach(r => {
     addMemberRoom(r, member?.member_id)
   });
-  window.location.href='/home'
+  goto(resolve('/home'))
 }
 
 </script>
-
-{#if !member?.house_id}
 
 {#if !submitted}
 <div class="flex w-full justify-center">
@@ -70,7 +74,4 @@ async function handleSubmit2(event: SubmitEvent) {
 		<button onclick={handleSubmit2} class="my-3 p-2">Join</button>
 	</form>
   </div>
-{/if}
-{:else}
-  {window.location.href='/home'}
 {/if}

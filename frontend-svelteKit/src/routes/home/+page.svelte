@@ -3,30 +3,31 @@
 	import { onMount } from 'svelte';
 	import type { MemberRow } from '$lib/types';
 	import { getMembers, getMemberData, getMemberById } from '$lib/services/memberApi';
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
 
 	let members: MemberRow[] = $state([]);
 	let selectedMember: MemberRow | null = $state(null);
   let member: MemberRow | null = $state(null);
-	let isLoading = $state(true);
+  let house_id: number | null = $state(null)
 
 	onMount(async () => {
-    try {
 		members = await getMembers();
     member = await getMemberData();
-    } finally {
-      isLoading = false
+    house_id = member?.house_id;
+    if (!member?.house_id) {
+      goto(resolve('/new-user'))
     }
-
 	});
 </script>
 
-{#if !! member && !!member.house_id}
   {#if !members.length}
     <h1 class="text-center text-6xl font-bold">Members Loading...</h1>
   {:else}
     <div class="flex w-full flex-col justify-center text-white">
       <div class="flex justify-center pt-10">
         <ul class="flex w-1/3 flex-col space-y-5 p-4 align-middle">
+			<p class="flex w-full text-start">House Key: {house_id}</p>
           {#each members as m (m.member_id)}
             <button
               type="button"
@@ -59,8 +60,3 @@
       </div>
     </div>
   {/if}
-{:else if member}
-  {window.location.href='/new-user'}
-{:else}
-  {window.location.href='/'}
-{/if}

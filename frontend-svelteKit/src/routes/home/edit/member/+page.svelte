@@ -1,5 +1,7 @@
 <script lang="ts">
 	import '$lib/layout.css';
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
 	import { getMembers, getMemberById, getMemberData, deleteMemberById } from '$lib/services/memberApi';
 	import { addMemberRoom, deleteMemberRoomById } from '$lib/services/memberRoomApi';
 	import { getRooms } from '$lib/services/roomApi';
@@ -19,6 +21,9 @@
     member = await getMemberData();
 		members = await getMembers();
 		rooms = await getRooms();
+    if (!member.house_id) {
+      goto(resolve('/new-user'))
+    }
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
@@ -35,7 +40,6 @@
 	}
 </script>
 
-{#if member?.house_id}
 {#if !members.length}
 	<h1 class="text-center text-6xl font-bold">Members Loading...</h1>
 {:else}
@@ -94,15 +98,4 @@
 			</ul>
 		</div>
 	</div>
-{/if}
-{:else}
-<div class="flex w-full justify-center pt-10">
-<form class="flex items-center gap-5 flex-col p-5">
-    <h1>No house connected</h1>
-      <div class="flex justify-center gap-5 flex-row">
-      <button class="p-2" onclick={window.location.href ='/make-house'}>Make House</button>
-      <button class="p-2" onclick={window.location.href ='/join-house'}>Join House</button>
-      </div>
-    </form>
-  </div>
 {/if}
