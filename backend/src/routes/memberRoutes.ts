@@ -6,8 +6,8 @@ import {
   deleteMember,
   updateMember,
   confirmMember,
-} from '../controllers/memberController.ts';
-import authMiddleware from './authMiddleweare.ts';
+} from '../controllers/memberController';
+import authMiddleware from './authMiddleweare';
 
 const router = Router();
 

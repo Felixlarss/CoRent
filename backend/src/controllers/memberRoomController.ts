@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import memberRoomService from '../services/memberRoomService.ts';
+import memberRoomService from '../services/memberRoomService';
 
 // get all rooms
 

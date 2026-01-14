@@ -1,5 +1,5 @@
 import 'dotenv';
-import { db } from '../database.ts';
+import { db } from '../database';
 import type {
   House,
   HouseRow,

@@ -3,7 +3,7 @@ import {
   createMemberRoom,
   updateMemberRoomById,
   deleteMemberRoomById,
-} from '../controllers/memberRoomController.ts';
+} from '../controllers/memberRoomController';
 
 const router = Router();
 

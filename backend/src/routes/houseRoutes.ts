@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import authMiddleware from './authMiddleweare.ts';
+import authMiddleware from './authMiddleweare';
 import {
   getAllHouses,
   updateHouse,
   getHouseById,
   addHouse,
-} from '../controllers/houseController.ts';
+} from '../controllers/houseController';
 
 const router = Router();
 

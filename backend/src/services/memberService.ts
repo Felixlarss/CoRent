@@ -1,6 +1,6 @@
 import 'dotenv';
 import jwt from 'jsonwebtoken';
-import { db } from '../database.ts';
+import { db } from '../database';
 import type {
   Member,
   MemberRow,

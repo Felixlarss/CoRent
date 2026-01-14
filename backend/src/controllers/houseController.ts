@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import houseService from '../services/houseService.ts';
+import houseService from '../services/houseService';
 
 // get all rooms
 

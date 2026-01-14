@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import memberService from '../services/memberService.ts';
+import memberService from '../services/memberService';
 import type {
   Member,
   MemberNameRow,
