@@ -1,3 +1,21 @@
+<script lang="ts">
+	import { goto } from "$app/navigation";
+	import { resolve } from "$app/paths";
+import { getMemberData } from "$lib/services/memberApi";
+	import type { Member } from "$lib/types";
+	import { onMount } from "svelte";
+
+let member: Member | null = $state(null)
+
+onMount(async()=> {
+  member = await getMemberData();
+  if (member?.house_id) {
+    goto(resolve('/home'))
+  }
+});
+
+</script>
+
 <div class="flex w-full justify-center pt-10">
 <form class="flex items-center gap-5 flex-col p-5">
     <h1>No house connected</h1>

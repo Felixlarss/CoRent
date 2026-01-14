@@ -9,7 +9,6 @@ export function getAuthHeaders(): Headers {
 	const token: string | null = localStorage.getItem('auth_token');
 	const headers = new Headers({ 'Content-Type': 'application/json' });
 	if (token) headers.set('authorization', token);
-  console.log('headers',headers)
 	return headers;
 }
 
@@ -30,7 +29,6 @@ export async function confirmLogin(
 	if (body.ok) {
 		localStorage.setItem('auth_token', body.data.token);
 	}
-  console.log('confirm login',body)
 	return body;
 }
 
