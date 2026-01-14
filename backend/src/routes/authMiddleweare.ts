@@ -2,8 +2,8 @@ import type { JwtPayload } from 'jsonwebtoken';
 import type { Request, Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { getMemberById } from '../services/memberService';
-import type { MemberRow } from '../models/types';
+import { getMemberById } from '../services/memberService.js';
+import type { MemberRow } from '../models/types.js';
 
 dotenv.config();
 

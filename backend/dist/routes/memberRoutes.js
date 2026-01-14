@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { getAllMembers, getMemberById, createMember, deleteMember, updateMember, confirmMember, } from '../controllers/memberController';
-import authMiddleware from './authMiddleweare';
+import { getAllMembers, getMemberById, createMember, deleteMember, updateMember, confirmMember, } from '../controllers/memberController.js';
+import authMiddleware from './authMiddleweare.js';
 const router = Router();
 router.get('/members', authMiddleware, getAllMembers);
 router.get('/member/:member_id', authMiddleware, getMemberById);

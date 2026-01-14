@@ -6,8 +6,8 @@ import {
   deleteMember,
   updateMember,
   confirmMember,
-} from '../controllers/memberController';
-import authMiddleware from './authMiddleweare';
+} from '../controllers/memberController.js';
+import authMiddleware from './authMiddleweare.js';
 
 const router = Router();
 

@@ -1,4 +1,4 @@
-import houseService from '../services/houseService';
+import houseService from '../services/houseService.js';
 // get all rooms
 export const getAllHouses = async (_req, res) => {
     try {

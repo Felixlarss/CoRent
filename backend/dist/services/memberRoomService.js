@@ -1,5 +1,5 @@
 import 'dotenv';
-import { db } from '../database';
+import { db } from '../database.js';
 export const createMemberRoom = async (room_id, member_id) => {
     try {
         const { rows } = await db.query(`

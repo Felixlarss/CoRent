@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { addRoom, getAllRooms, getRoomById, getRoomsById, } from '../controllers/roomController';
-import authMiddleware from './authMiddleweare';
+import { addRoom, getAllRooms, getRoomById, getRoomsById, } from '../controllers/roomController.js';
+import authMiddleware from './authMiddleweare.js';
 const router = Router();
 router.get('/rooms', authMiddleware, getAllRooms);
 router.get('/rooms/:room_house_id', authMiddleware, getRoomsById);

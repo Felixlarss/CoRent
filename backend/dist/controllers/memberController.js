@@ -1,4 +1,4 @@
-import memberService from '../services/memberService';
+import memberService from '../services/memberService.js';
 // get memberid from body
 function getMemberIdFromBody(body) {
     const output = {

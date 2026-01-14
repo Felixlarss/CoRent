@@ -1,8 +1,8 @@
-import config from './config/config';
-import memberRoutes from './routes/memberRoutes';
-import roomRoutes from './routes/roomRoutes';
-import memberRoomRoutes from './routes/memberRoomRoutes';
-import houseRoutes from './routes/houseRoutes';
+import config from './config/config.js';
+import memberRoutes from './routes/memberRoutes.js';
+import roomRoutes from './routes/roomRoutes.js';
+import memberRoomRoutes from './routes/memberRoomRoutes.js';
+import houseRoutes from './routes/houseRoutes.js';
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';

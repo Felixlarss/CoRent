@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { getMemberById } from '../services/memberService';
+import { getMemberById } from '../services/memberService.js';
 dotenv.config();
 const authMiddleware = async (req, res, next) => {
     const { authorization } = req.headers;

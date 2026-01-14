@@ -1,4 +1,4 @@
-import memberRoomService from '../services/memberRoomService';
+import memberRoomService from '../services/memberRoomService.js';
 // get all rooms
 export const createMemberRoom = async (req, res) => {
     try {

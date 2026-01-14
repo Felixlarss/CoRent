@@ -4,8 +4,8 @@ import {
   getAllRooms,
   getRoomById,
   getRoomsById,
-} from '../controllers/roomController';
-import authMiddleware from './authMiddleweare';
+} from '../controllers/roomController.js';
+import authMiddleware from './authMiddleweare.js';
 
 const router = Router();
 

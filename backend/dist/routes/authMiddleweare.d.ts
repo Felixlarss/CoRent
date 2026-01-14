@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import type { MemberRow } from '../models/types';
+import type { MemberRow } from '../models/types.js';
 interface AuthRequest extends Request {
     player?: MemberRow;
 }

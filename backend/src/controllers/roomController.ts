@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import roomService from '../services/roomService';
+import roomService from '../services/roomService.js';
 
 // get all rooms
 

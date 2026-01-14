@@ -1,6 +1,6 @@
 import 'dotenv';
 import jwt from 'jsonwebtoken';
-import { db } from '../database';
+import { db } from '../database.js';
 import bcrypt from 'bcryptjs';
 export const noMemberFoundErr = 'Member not found';
 // get all members
