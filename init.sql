@@ -1,7 +1,14 @@
 -- create tables
+CREATE OR REPLACE FUNCTION random_between(low INT ,high INT) 
+   RETURNS INT AS
+$$
+BEGIN
+   RETURN floor(random()* (high-low + 1) + low);
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
 
 CREATE TABLE house (
-  house_id SERIAL NOT NULL PRIMARY KEY, 
+  house_id INT DEFAULT random_between(100000, 999999) PRIMARY KEY, 
   house_name VARCHAR(50) NOT NULL,
   house_rent DECIMAL NOT NULL,
   house_m2 DECIMAL NOT NULL
@@ -19,7 +26,8 @@ CREATE TABLE room (
 
 CREATE TABLE member (
   member_id SERIAL NOT NULL PRIMARY KEY,
-  member_name VARCHAR(50) NOT NULL UNIQUE
+  member_name VARCHAR(50) NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL
 );
 
 CREATE TABLE member_room (

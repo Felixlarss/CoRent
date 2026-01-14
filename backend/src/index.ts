@@ -6,7 +6,10 @@ import houseRoutes from './routes/houseRoutes.ts';
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+
 const app = express();
+
+app.use(express.json());
 
 app.use(
   cors({
@@ -20,8 +23,6 @@ app.use('/api', memberRoutes);
 app.use('/api', roomRoutes);
 app.use('/api', memberRoomRoutes);
 app.use('/api', houseRoutes);
-
-app.use(express.json());
 
 app.listen(config.port, () => {
   console.log(`Server running on port ${config.port}`);

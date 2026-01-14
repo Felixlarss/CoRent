@@ -3,7 +3,9 @@ import { Client } from 'pg';
 
 export const db = new Client({
   connectionString: process.env.PGURI!,
-  ssl: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 db.connect();

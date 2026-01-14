@@ -31,13 +31,11 @@ async function handleSubmit1(event: SubmitEvent) {
 }
 
 async function handleSubmit2(event: SubmitEvent) {
-  try {
 
   event.preventDefault();
   room_ids.forEach(r => {
     addMemberRoom(r, member?.member_id)
   });
-}} finally {
   window.location.href='/home'
 }
 

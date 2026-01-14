@@ -1,11 +1,11 @@
 import type { RoomRow } from '$lib/types';
 import { getAuthHeaders } from './memberApi';
-const url = process.env.VITE_API_URL;
+const url = import.meta.env.VITE_API_URL;
 const noRoomErr = 'Error, No room Found';
 
 export async function getRooms(): Promise<RoomRow[]> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`/api/rooms`, {headers});
+	const response = await fetch(`${url}/rooms`, {headers});
 	
   const json = await response.json();
 
@@ -19,7 +19,7 @@ export async function getRooms(): Promise<RoomRow[]> {
 
 export async function getRoomsById(room_house_id: string): Promise<RoomRow[]> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`/api/rooms/${room_house_id}`, {headers});
+	const response = await fetch(`${url}/rooms/${room_house_id}`, {headers});
 	
   const json = await response.json();
 
@@ -32,7 +32,7 @@ export async function getRoomsById(room_house_id: string): Promise<RoomRow[]> {
 }
 
 export async function addRoom(room_name: string, room_m2: number, room_house_id: string): Promise<RoomRow[]> {
-	const response = await fetch(`/api/room`, {
+	const response = await fetch(`${url}/room`, {
     method: "POST",
 		headers: {
 			'Content-Type': 'application/json'

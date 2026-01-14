@@ -1,6 +1,6 @@
 import type { MemberAuthResponse, MemberRow, MemberRowResponse } from '../types.ts';
 
-const url = process.env.VITE_API_URL;
+const url = import.meta.env.VITE_API_URL;
 const noMemberErr = 'Error, No Member Found';
 
 // auth headers
@@ -20,7 +20,7 @@ export async function confirmLogin(
 	password: string
 ): Promise<MemberAuthResponse> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`/api/member/auth`, {
+	const response = await fetch(`${url}/member/auth`, {
 		method: 'POST',
 		headers,
 		body: JSON.stringify({ member_name: member_name, password })
@@ -38,7 +38,7 @@ export async function confirmLogin(
 
 export async function getMemberData(): Promise<MemberRowResponse> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`/api/member/0`, { headers });
+	const response = await fetch(`${url}/member/0`, { headers });
 	const json = await response.json();
   const body = await json.data;
 	return body;
@@ -48,7 +48,7 @@ export async function getMemberData(): Promise<MemberRowResponse> {
 
 export async function getMembers(): Promise<MemberRow[]> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`/api/members`, { headers });
+	const response = await fetch(`${url}/members`, { headers });
 
 	const json = await response.json();
 
@@ -64,7 +64,7 @@ export async function getMembers(): Promise<MemberRow[]> {
 
 export async function getMemberById(member_id: string): Promise<MemberRow> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`/api/member/${member_id}`, {headers});
+	const response = await fetch(`${url}/member/${member_id}`, {headers});
 
 	const json = await response.json();
 
@@ -79,7 +79,7 @@ export async function getMemberById(member_id: string): Promise<MemberRow> {
 // post member
 
 export async function addMember(member_name: string, password: string, confirm_password: string) {
-	const response = await fetch(`/api/member`, {
+	const response = await fetch(`${url}/member`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ export async function editMemberById(member_id: string, member_name: string, mem
 		member_m2: member_m2 ?? old_member_data.member_m2
 	};
 	console.log(updatedData);
-	const response = await fetch(`/api/member/${member_id}`, {
+	const response = await fetch(`${url}/member/${member_id}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ export async function editMemberById(member_id: string, member_name: string, mem
 // delete member
 
 export async function deleteMemberById(member_id: string) {
-	const response = await fetch(`/api/member/${member_id}`, { method: 'DELETE' });
+	const response = await fetch(`${url}/member/${member_id}`, { method: 'DELETE' });
 	if (!response.ok) throw new Error('delete faled');
 	return response;
 }

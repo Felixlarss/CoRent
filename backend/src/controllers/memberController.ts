@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import memberService from '../services/memberService.js';
+import memberService from '../services/memberService.ts';
 import type {
   Member,
   MemberNameRow,
@@ -72,6 +72,7 @@ export const createMember = async (req: Request, res: Response) => {
         .json({ member_name, error: 'password does not match' });
     }
     const rows = await memberService.createMember(member_name, password);
+    console.log(rows);
     return res.status(201).json(rows);
   } catch (error) {
     return res.status(500).json({ error });
