@@ -9,6 +9,9 @@
 	<ul class="w-fill m-5 flex justify-between gap-5 rounded-2xl">
 		<div class="flex flex-row items-center gap-5 p-2">
 			<div>
+				<a class="p-2 hover:underline text-end" href="/profile">Profile</a>
+			</div>
+			<div>
 				<a class="p-2 hover:underline" href="/home">Home</a>
 			</div>
 			<div>

@@ -11,16 +11,16 @@ import { addRoom } from '../../lib/services/roomApi.ts'
 import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
 
-let house_name: string = $state()
-let house_rent: number = $state()
-let house_m2: number = $state()
+let house_name: string | undefined = $state(undefined)
+let house_rent: number | undefined = $state(undefined)
+let house_m2: number | undefined = $state(undefined)
 
 let rooms: RoomRow[] = $state([])
 let room_id: string = $state("")
 let temp_room_id: number = $state(0)
 
-let member: MemberRow = $state()
-let house_id: string = $state("")
+let member: MemberRow | undefined = $state(undefined)
+let house_id: string | undefined = $state(undefined)
 
 async function addEmptyRoom() {
     rooms.push({"room_name": "", "room_m2": null, "room_id": temp_room_id})
@@ -38,7 +38,7 @@ async function addEmptyRoom() {
 
 async function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
-      if (!member.house_id) {
+      if (!member?.house_id) {
     house_id = await addHouse(house_name, house_rent, house_m2);
     rooms.forEach( async r => {
       room_id = await addRoom(r.room_name, r.room_m2, house_id.House_added?.house_id)

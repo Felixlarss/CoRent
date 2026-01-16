@@ -1,11 +1,11 @@
+import { getAuthHeaders } from "./memberApi";
 const url = import.meta.env.VITE_API_URL;
 
 export async function addMemberRoom(room_id: string, member_id: string) {
+	const headers = getAuthHeaders();
 	const response = await fetch(`${url}/member_room`, {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
+		headers,
 		body: JSON.stringify({
 			room_id,
 			member_id
@@ -16,11 +16,10 @@ export async function addMemberRoom(room_id: string, member_id: string) {
 }
 
 export async function editMemberRoomById(member_id: string, room_id: string) {
+	const headers = getAuthHeaders();
 	const response = await fetch(`${url}/member_room/${member_id}`, {
 		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json'
-		},
+		headers,
 		body: JSON.stringify({ room_id })
 	});
 	console.log('dbug');
@@ -31,7 +30,8 @@ export async function editMemberRoomById(member_id: string, room_id: string) {
 }
 
 export async function deleteMemberRoomById(member_id: string) {
-	const response = await fetch(`${url}/member_room/${member_id}`, { method: 'DELETE' });
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/member_room/${member_id}`, { method: 'DELETE', headers });
 	if (!response.ok) throw new Error('delete faled');
 	return response;
 }

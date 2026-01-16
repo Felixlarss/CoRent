@@ -120,7 +120,8 @@ export async function editMemberById(member_id: string, member_name: string, mem
 // delete member
 
 export async function deleteMemberById(member_id: string) {
-	const response = await fetch(`${url}/member/${member_id}`, { method: 'DELETE' });
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/member/${member_id}`, { method: 'DELETE', headers });
 	if (!response.ok) throw new Error('delete faled');
 	return response;
 }

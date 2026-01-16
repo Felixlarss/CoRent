@@ -2,10 +2,10 @@
 	import { goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
 import { getMemberData } from "$lib/services/memberApi";
-	import type { Member } from "$lib/types";
+	import type { MemberRow } from "$lib/types";
 	import { onMount } from "svelte";
 
-let member: Member | null = $state(null)
+let member: MemberRow | null = $state(null)
 
 onMount(async()=> {
   member = await getMemberData();
