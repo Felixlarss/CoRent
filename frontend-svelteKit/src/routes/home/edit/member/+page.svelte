@@ -40,8 +40,7 @@
 	}
 </script>
 
-{#if !members.length}
-{:else}
+{#if members.length}
 	<div class="flex w-full flex-col justify-center">
 		<div class="flex justify-center gap-5 pt-5">
 			<ul class="flex w-1/3 flex-col space-y-5 p-2 align-middle">

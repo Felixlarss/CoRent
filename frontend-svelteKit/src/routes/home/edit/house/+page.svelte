@@ -22,8 +22,6 @@
     }
 	});
 </script>
-{#if !house}
-{:else}
 {#if house}
 	<p class="flex justify-center text-4xl font-bold">
 		{house!.house_name}
@@ -32,7 +30,7 @@
 
 <div class="flex w-full flex-col justify-center">
 	<div class="flex justify-center gap-5 pt-5">
-		<ul class="flex w-1/3 flex-col space-y-5 p-4 align-middle">
+		<ul class="flex lg:w-1/3 sm:w-full flex-col space-y-5 p-4 align-middle">
 			<p class="flex w-full text-start">House Key: {house_id}</p>
 			{#each rooms as r (r.room_id)}
 				<li class="flex flex-row">
@@ -49,4 +47,3 @@
 		</ul>
 	</div>
 </div>
-{/if}

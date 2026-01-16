@@ -51,9 +51,9 @@
 </script>
 
 
-<div class="flex flex-col w-1/3 p-5">
-  <h1>{signUpForm ? "Sign up" : "Log in"}</h1>
-  <form onsubmit={handleSubmit} class="flex p-5 flex-col gap-3">
+<div class="flex flex-col p-5 items-center">
+  <form onsubmit={handleSubmit} class="flex sm:w-screem md:w-1/4 p-5 flex-col gap-3">
+  <h1 class="flex font-bold text-3xl">{signUpForm ? "Sign up" : "Log in"}</h1>
     <input
       bind:value={member_name}
       placeholder="name"

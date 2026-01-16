@@ -54,7 +54,7 @@ async function handleSubmit(event: SubmitEvent) {
 {#if !member?.house_id}
 
 <div class="flex w-full justify-center">
-	<form class="flex w-1/4 flex-col items-center justify-center py-5">
+	<form class="flex md:w-1/5 sm:w-full flex-col p-5 items-center justify-center">
 		<h2 class="flex justify-center font-bold">Add A House</h2>
 		<label class="mt-5 flex w-full items-center justify-center">
 			<input required placeholder="Name" type="text" name="house_name" bind:value={house_name} />

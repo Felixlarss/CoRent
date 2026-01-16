@@ -36,11 +36,10 @@
 	}
 </script>
 
-{#if !member}
-{:else}
+{#if member}
 	<div class="flex w-full flex-col justify-center">
 		<div class="flex justify-center gap-5 pt-5">
-			<ul class="flex w-1/3 flex-col space-y-5 p-2 align-middle">
+			<ul class="flex md:w-1/3 sm:w-full flex-col space-y-5 p-2 align-middle">
 					<div class="flex w-full flex-col px-2 pb-2">
 						<div class="flex w-full pt-3 justify-center gap-3">
 							<button
@@ -51,11 +50,11 @@
 								<span class="flex whitespace-nowrap">{member.member_m2} m²</span>
 							</button>
 						</div>
-							<form onsubmit={handleSubmit} class="none my-2 flex justify-center">
+							<form onsubmit={handleSubmit} class="none w-full my-2 flex justify-center">
 								<div class="flex w-full flex-col items-center justify-center gap-3 pt-3">
                   <p>Change Rooms</p>
 									{#each rooms as r (r.room_id)}
-										<li class="flex w-2/3 items-center justify-between px-2">
+										<li class="flex w-full md:w-2/3 items-center justify-between px-2">
 											<div class="flex items-center justify-start gap-2">
 												<input
 													class="flex cursor-pointer items-center"
@@ -78,7 +77,7 @@
 								class="flex cursor-pointer items-center p-2"
 								onclick={async () => {
 									await deleteMemberById(member.member_id);
-									members = await getMembers();
+									member = await getMembers();
 								}}>Delete Account</button
 							>
 								</div>

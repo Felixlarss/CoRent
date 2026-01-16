@@ -52,7 +52,7 @@ async function handleSubmit2(event: SubmitEvent) {
 
 {#if !submitted}
 <div class="flex w-full justify-center">
-	<form class="flex w-1/4 flex-col items-center justify-center py-5">
+	<form class="flex md:w-1/5 sm:w-full p-5 flex-col items-center justify-center">
 		<h2 class="flex justify-center font-bold">Add A House</h2>
 		<label class="mt-5 flex w-full items-center justify-center">
 			<input required placeholder="House Key" type="number" name="house_id" bind:value={house_id} />
@@ -62,11 +62,11 @@ async function handleSubmit2(event: SubmitEvent) {
 </div>
 {:else}
   <div class="flex w-full justify-center">
-	<form class="flex w-1/4 flex-col items-center justify-center py-5">
+	<form class="flex md:w-1/5 sm:w-full flex-col items-center justify-center p-5">
 		<h2 class="flex justify-center font-bold">What room(s) is yours?</h2>
 		<h1 class="flex justify-center font-bold text-2xl pt-2">{house.house_name}</h1>
     {#each rooms as r (r.room_id)}
-		<li class="mt-5 flex items-center justify-between w-2/3 p-3">
+		<li class="mt-5 flex items-center justify-between w-full md:w-2/3 p-3">
           <div class="justify-start gap-3 flex-row items-center flex">
         <input type="checkbox" bind:group={room_ids} value={r.room_id}>
         <p>{r.room_name}</p>
