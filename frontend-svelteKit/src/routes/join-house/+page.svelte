@@ -3,21 +3,21 @@
 import type { RoomRow, MemberRow, HouseRow } from '$lib/types';
 import { onMount } from 'svelte';
 
-import { addMemberRoom } from '../../lib/services/memberRoomApi.ts'
-import { getMemberData } from '../../lib/services/memberApi.ts'
-import { getRoomsById } from '$lib/services/roomApi.ts';
-import { getHouseById } from '$lib/services/houseApi.ts';
+import { addMemberRoom } from '../../lib/services/memberRoomApi.js'
+import { getMemberData } from '../../lib/services/memberApi.js'
+import { getRoomsById } from '$lib/services/roomApi.js';
+import { getHouseById } from '$lib/services/houseApi.js';
 
 import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
 
-let house: HouseRow = $state()
+let house: HouseRow | undefined = $state(undefined)
 let house_id: string = $state("")
 
 let rooms: RoomRow[] = $state([])
-let room_ids: RoomRow[] = $state([])
+let room_ids: string[] = $state([])
 
-let member: MemberRow = $state()
+let member: MemberRow | undefined= $state(undefined)
 
 let submitted: boolean = $state(false)
 
@@ -31,7 +31,7 @@ let submitted: boolean = $state(false)
 
 async function handleSubmit1(event: SubmitEvent) {
   event.preventDefault();
-  if (!member.house_id) {
+  if (!member?.house_id) {
     rooms = await getRoomsById(house_id)
     house = await getHouseById(house_id)
     submitted = true
@@ -40,7 +40,7 @@ async function handleSubmit1(event: SubmitEvent) {
 
 async function handleSubmit2(event: SubmitEvent) {
   event.preventDefault();
-  if (!member.house_id) {
+  if (!member?.house_id) {
     room_ids.forEach(r => {
       addMemberRoom(r, member?.member_id)
     });

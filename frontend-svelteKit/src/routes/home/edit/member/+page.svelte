@@ -41,7 +41,6 @@
 </script>
 
 {#if !members.length}
-	<h1 class="text-center text-6xl font-bold">Members Loading...</h1>
 {:else}
 	<div class="flex w-full flex-col justify-center">
 		<div class="flex justify-center gap-5 pt-5">

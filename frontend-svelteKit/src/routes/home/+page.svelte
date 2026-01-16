@@ -1,31 +1,34 @@
 <script lang="ts">
 	import '$lib/layout.css';
 	import { onMount } from 'svelte';
-	import type { MemberRow } from '$lib/types';
+	import type { HouseRow, MemberRow } from '$lib/types';
 	import { getMembers, getMemberData, getMemberById } from '$lib/services/memberApi';
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
+	import { getHouseById } from '$lib/services/houseApi';
 
 	let members: MemberRow[] = $state([]);
 	let selectedMember: MemberRow | null = $state(null);
   let member: MemberRow | null = $state(null);
-  let house_id: number | null = $state(null)
+  let house_id: number | undefined = $state(undefined)
+  let house: HouseRow | undefined = $state(undefined)
 
 	onMount(async () => {
 		members = await getMembers();
     member = await getMemberData();
     house_id = member?.house_id;
-    if (!member?.house_id) {
+    house = await getHouseById(house_id)
+    if (!house_id) {
       goto(resolve('/new-user'))
     }
 	});
 </script>
 
   {#if !members.length}
-    <h1 class="text-center text-6xl font-bold">Members Loading...</h1>
   {:else}
     <div class="flex w-full flex-col justify-center text-white">
-      <div class="flex justify-center pt-10">
+      <div class="flex flex-col items-center pt-5">
+      <p class="flex justify-center text-4xl font-bold pb-5">{house?.house_name}</p>
         <ul class="flex w-1/3 flex-col space-y-5 p-4 align-middle">
 			<p class="flex w-full text-start">House Key: {house_id}</p>
           {#each members as m (m.member_id)}

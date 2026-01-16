@@ -22,6 +22,8 @@
     }
 	});
 </script>
+{#if !house}
+{:else}
 {#if house}
 	<p class="flex justify-center text-4xl font-bold">
 		{house!.house_name}
@@ -47,3 +49,4 @@
 		</ul>
 	</div>
 </div>
+{/if}

@@ -1,4 +1,4 @@
-import type { MemberAuthResponse, MemberRow, MemberRowResponse } from '../types.ts';
+import type { MemberAuthResponse, MemberRow } from '../types.ts';
 
 const url = import.meta.env.VITE_API_URL;
 const noMemberErr = 'Error, No Member Found';
@@ -34,7 +34,7 @@ export async function confirmLogin(
 
 // get all member data
 
-export async function getMemberData(): Promise<MemberRowResponse> {
+export async function getMemberData(): Promise<MemberRow> {
 	const headers = getAuthHeaders();
 	const response = await fetch(`${url}/member/0`, { headers });
 	const json = await response.json();
