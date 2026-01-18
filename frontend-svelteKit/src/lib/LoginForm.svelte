@@ -92,13 +92,13 @@
         }}
         >{signUpForm ? "Sign up" : "Log in"}</button
       >
-      <button
+      <a
         type="button"
         onclick={() => {
           signUpForm = !signUpForm;
         }}
-        class="w-fit p-2 link text-amber-600"
-        >{signUpForm ? "Log in" : "Sign up"}</button
+        class="w-fit none p-2 cursor-pointer hover:underline bg text-amber-600"
+        >{signUpForm ? "Log in" : "Sign up"}</a
       >
     </div>
   </form>

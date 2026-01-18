@@ -1,33 +1,40 @@
 <script lang="ts">
 	import '$lib/layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-
+	import { onMount } from 'svelte';
+	import { getMemberData } from '$lib/services/memberApi';
+	import type { Member } from '$lib/types';
+  
+	let member: Member | null = $state(null);
+	onMount(async()=> {
+		member = await getMemberData()
+	})
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<ul class="m-5 flex justify-between gap-5">
-		<div class="flex flex-row items-center gap-5 p-2">
-			<div>
-				<a class="p-2 hover:underline" href="/profile">Profile</a>
-			</div>
-			<div>
-				<a class="p-2 hover:underline" href="/home">Home</a>
-			</div>
-			<!-- <div> -->
-			<!-- 	<a class="p-2 hover:underline" href="/home/edit/member">Edit Members</a> -->
-			<!-- </div> -->
-			<div>
-				<a class="p-2 hover:underline" href="/home/edit/house">Edit House</a>
-			</div>
-		</div>
-		<div class="m-2 flex hidden lg:block items-center justify-center text-white">
-			<a href="/" class="logo flex justify-center align-middle text-3xl">CoRent</a>
-		</div>
-	</ul>
+	<link rel="icon" href={favicon} />
+</svelte:head>
 
-	<link rel="icon" href={favicon} /></svelte:head
->
+<ul class="m-5 p-2 flex flex-col lg:flex-row justify-between gap-5">
+	<div class="flex flex-row items-center justify-center lg:justify-start gap-5 p-2">
+		<div>
+			<a class="p-2 hover:underline" href={member ? "/profile" : "/about"}>{member ? "Profile" : "About"}</a>
+		</div>
+		<div>
+			<a class="p-2 hover:underline" href={member ? "/home" : "/faq"}>{member ? "Home" : "FAQ"}</a>
+		</div>
+		{#if member}
+		<div>
+			<a class="p-2 hover:underline" href="/home/edit/house">Edit House</a>
+		</div>
+		{/if}
+	</div>
+	<div class="m-2 flex items-center justify-center text-white hidden lg:flex">
+		<a href="/" class="logo flex justify-center align-middle text-3xl">CoRent</a>
+	</div>
+</ul>
+
 {@render children()}
 
 <style>

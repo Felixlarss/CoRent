@@ -55,6 +55,7 @@ li {
 	box-shadow: var(--shadow-m);
 	border-radius: 10px;
 	text-shadow: var(--text-shadow-m);
+  padding: 10px;
 }
 
 button {
@@ -64,6 +65,7 @@ button {
 	color: var(--text);
 	font-weight: 700;
 	text-shadow: var(--text-shadow-m);
+  padding: 10px;
 }
 
 button:hover {
@@ -86,6 +88,13 @@ form {
 	color: var(--text);
 }
 
+section {
+	background-color: var(--bg);
+	box-shadow: var(--shadow-m);
+	border-radius: 10px;
+	color: var(--text);
+}
+
 .highlight {
 	background-color: var(--bg-light);
 	box-shadow: var(--shadow-m);
@@ -100,10 +109,80 @@ form {
 	color: var(--text);
 }
 
+.bg {
+	background-color: var(--bg);
+	box-shadow: var(--shadow-m);
+	border-radius: 10px;
+	color: var(--text);
+}
+
+.bg:hover {
+	background-color: none;
+	box-shadow: none;
+	border-radius: none;
+	color: none;
+}
+
 .none {
 	background-color: none;
 	box-shadow: none;
 	border-radius: none;
-	color: var(--text);
+	color: none;
 }
 
+.btn-flip{
+  opacity: 1;
+  outline: 0;
+  color: var(--bg-light);
+  line-height: 40px;
+  position: relative;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  
+  &:hover{
+    
+    &:after{
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+    
+    &:before{
+      opacity: 0;
+      transform: translateY(50%) rotateX(90deg);
+    }
+  }
+  
+  &:after{
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    color: var(--text);
+    display: block;
+    transition: 500ms;
+    position: absolute;
+    background: var(--bg-highlight);   
+	  box-shadow: var(--shadow-m);
+    content: attr(data-back);
+    transform: translateY(-50%) rotateX(90deg);
+    border-radius: 10px;
+  }
+  
+  &:before{
+    top: 0;
+    left: 0;
+    opacity: 1;
+    color: var(--text);
+    display: block;
+	  box-shadow: var(--shadow-m);
+    padding: 0 30px;
+    line-height: 40px;
+    transition: 500ms;
+    position: relative;
+    background: var(--bg-light);
+    content: attr(data-front);
+    transform: translateY(0) rotateX(0);
+    border-radius: 10px;
+  }
+}
