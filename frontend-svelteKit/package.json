@@ -43,6 +43,8 @@
 	"dependencies": {
 		"dotenv": "^17.2.3",
 		"goto": "^0.2.0",
+		"jspdf": "^4.0.0",
+		"jspdf-autotable": "^5.0.7",
 		"navigation": "^6.3.1",
 		"svelte-spa-router": "^4.0.1"
 	}
