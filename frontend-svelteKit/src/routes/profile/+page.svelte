@@ -38,17 +38,17 @@
 
 {#if member}
 	<div class="flex w-full flex-col justify-center">
-		<div class="flex justify-center gap-5 pt-5">
-			<ul class="flex md:w-1/3 sm:w-full flex-col space-y-5 p-2 align-middle">
+		<div class="flex justify-center gap-5">
+			<ul class="flex md:w-1/3 sm:w-full flex-col space-y-5 align-middle">
+        <h1 class="text-4xl m-5 text-center">{member.member_name}</h1>
 					<div class="flex w-full flex-col px-2 pb-2">
 						<div class="flex w-full pt-3 justify-center gap-3">
-							<button
-								class="flex w-full hover:none items-center justify-between p-2 align-middle"
+							<div
+								class="flex highlight flex-col w-min hover:none items-start p-2 align-middle"
 							>
-								<span class="flex w-full text-start">{member.member_name}</span>
-								<span class="flex w-full text-start">{member.member_rent} kr</span>
-								<span class="flex whitespace-nowrap">{member.member_m2} m²</span>
-							</button>
+								<span class="flex whitespace-nowrap">Rent: {member.member_rent} kr</span>
+								<span class="flex whitespace-nowrap">Area: {member.member_m2} m²</span>
+							</div>
 						</div>
 							<form onsubmit={handleSubmit} class="none w-full my-2 flex justify-center">
 								<div class="flex w-full flex-col items-center justify-center gap-3 pt-3">

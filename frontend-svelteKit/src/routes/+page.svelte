@@ -33,9 +33,11 @@
 		</div>
 
 		<div class="mt-8 flex justify-center gap-6 text-sm">
-			<a href="/about" class="hover:underline w-1/2 text-right">About</a>
+      <div class="w-1/2"></div>
+			<a href="/about" class="hover:underline text-right">About</a>
 			<span>•</span>
-			<a href="/faq" class="hover:underline w-1/2 text-left">FAQ</a>
+			<a href="/faq" class="hover:underline text-left">FAQ</a>
+      <div class="w-1/2"></div>
 		</div>
 	</div>
 </div>
