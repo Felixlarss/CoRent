@@ -14,6 +14,8 @@
 	let member: MemberRow | undefined = $state(undefined);
 	let member_id: string | null = null;
 
+	let confirmDelete: boolean = false;
+
 	onMount(async () => {
 		member = await getMemberData();
 		rooms = await getRooms();
@@ -34,6 +36,13 @@
 		}
 		selectedRooms = null;
 		member = await getMemberData();
+	}
+
+	async function handleDelete() {
+		confirmDelete = confirm('confirm delete');
+		if (member && confirmDelete) {
+			await deleteMemberById(member.member_id);
+		}
 	}
 </script>
 
@@ -71,13 +80,8 @@
 								</li>
 							{/each}
 							<button class="my-5 w-1/3 cursor-pointer p-1">Confirm</button>
-							<button
-								class="flex cursor-pointer items-center p-2"
-								onclick={async () => {
-									if (member) {
-										await deleteMemberById(member.member_id);
-									}
-								}}>Delete Account</button
+							<button class="flex cursor-pointer items-center p-2" onclick={handleDelete}
+								>Delete Account</button
 							>
 						</div>
 					</form>
