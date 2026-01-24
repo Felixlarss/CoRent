@@ -5,6 +5,8 @@ export type MemberRow = {
 	member_rent: string;
 	house_id: number;
 	ok: boolean;
+	status: number;
+	error: { ok: false; error: string };
 };
 
 export type MemberAuthResponse =

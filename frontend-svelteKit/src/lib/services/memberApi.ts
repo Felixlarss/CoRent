@@ -88,9 +88,9 @@ export async function addMember(member_name: string, password: string, confirm_p
 			confirm_password
 		})
 	});
-	if (!response.ok) throw new Error('post faled');
+	if (response.status === 401) return { ok: false, error: 'password requirements not met' };
+	if (!response.ok) throw new Error('Post Failed');
 	const json = await response.json();
-	console.log(response);
 	const data = json.data.member_added;
 	return data;
 }
