@@ -37,7 +37,7 @@
 			<div class="w-1/2"></div>
 			<a href="/about" class="w-1/2 text-right hover:underline">About</a>
 			<span>•</span>
-			<a href="/faq" class="text-left hover:underline">FAQ</a>
+			<a href="/faq" class="w-1/2 text-left hover:underline">FAQ</a>
 			<div class="w-1/2"></div>
 		</div>
 	</div>
