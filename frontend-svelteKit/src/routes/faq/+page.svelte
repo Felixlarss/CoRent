@@ -21,11 +21,11 @@
 			answer:
 				"You can assign multiple members to the same room. CoRent will split that room's calculated rent equally among all assigned members. This is applicable to rooms aswell, one member can be assigned to multiple rooms."
 		},
-		// {
-		// 	question: 'Can I export or share the rent breakdown?',
-		// 	answer:
-		// 		'Yes, you can view a detailed breakdown of how rent is calculated for each member. This transparency helps everyone understand and agree on the split. You can share this information with your housemates directly through the app.'
-		// },
+		{
+			question: 'Can I export or share the rent breakdown?',
+			answer:
+				'Yes, you can view a detailed breakdown of how rent is calculated for each member. This transparency helps everyone understand and agree on the split. You can share this information with your housemates directly through the app.'
+		},
 		{
 			question: 'What if our total rent changes?',
 			answer:
