@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { create } from 'domain';
 	import { confirmLogin, addMember, getMemberData } from '../lib/services/memberApi.ts';
 
 	type Props = {
