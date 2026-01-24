@@ -4,11 +4,11 @@
 	import { onMount } from 'svelte';
 	import { getMemberData } from '$lib/services/memberApi';
 	import type { Member } from '$lib/types';
-  
+
 	let member: Member | null = $state(null);
-	onMount(async()=> {
-		member = await getMemberData()
-	})
+	onMount(async () => {
+		member = await getMemberData();
+	});
 	let { children } = $props();
 </script>
 
@@ -16,21 +16,23 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<ul class="m-5 p-2 flex flex-col lg:flex-row justify-between gap-5">
-	<div class="flex flex-row items-center justify-center lg:justify-start gap-5 p-2">
+<ul class="m-5 flex flex-col justify-between gap-5 p-2 lg:flex-row">
+	<div class="flex flex-row items-center justify-center gap-5 p-2 lg:justify-start">
 		<div>
-			<a class="p-2 hover:underline" href={member ? "/profile" : "/about"}>{member ? "Profile" : "About"}</a>
+			<a class="p-2 hover:underline" href={member ? '/profile' : '/about'}
+				>{member ? 'Profile' : 'About'}</a
+			>
 		</div>
 		<div>
-			<a class="p-2 hover:underline" href={member ? "/home" : "/faq"}>{member ? "Home" : "FAQ"}</a>
+			<a class="p-2 hover:underline" href={member ? '/home' : '/faq'}>{member ? 'Home' : 'FAQ'}</a>
 		</div>
 		{#if member}
-		<div>
-			<a class="p-2 hover:underline" href="/home/edit/house">Edit House</a>
-		</div>
+			<div>
+				<a class="p-2 hover:underline" href="/home/edit/house">Edit House</a>
+			</div>
 		{/if}
 	</div>
-	<div class="m-2 flex items-center justify-center text-white hidden lg:flex">
+	<div class="m-2 flex items-center justify-center text-white lg:flex">
 		<a href="/" class="logo flex justify-center align-middle text-3xl">CoRent</a>
 	</div>
 </ul>

@@ -9,7 +9,7 @@
 		{
 			question: 'How does CoRent calculate fair rent splits?',
 			answer:
-        'CoRent calculates rent by having each member pay for their own private spaces while shared areas are split equally among all residents. This ensures that everyone contributes fairly based on what they have exclusive access to, while common spaces like kitchens, living rooms, and bathrooms are shared costs.'
+				'CoRent calculates rent by having each member pay for their own private spaces while shared areas are split equally among all residents. This ensures that everyone contributes fairly based on what they have exclusive access to, while common spaces like kitchens, living rooms, and bathrooms are shared costs.'
 		},
 		{
 			question: 'Do I need to create an account to use CoRent?',
@@ -19,7 +19,7 @@
 		{
 			question: 'What if roommates share a room?',
 			answer:
-				'You can assign multiple members to the same room. CoRent will split that room\'s calculated rent equally among all assigned members. This is applicable to rooms aswell, one member can be assigned to multiple rooms.'
+				"You can assign multiple members to the same room. CoRent will split that room's calculated rent equally among all assigned members. This is applicable to rooms aswell, one member can be assigned to multiple rooms."
 		},
 		// {
 		// 	question: 'Can I export or share the rent breakdown?',
@@ -29,7 +29,7 @@
 		{
 			question: 'What if our total rent changes?',
 			answer:
-				'You can update the total rent amount at any time in the house settings. CoRent will automatically recalculate each member\'s share based on the new total while maintaining the same proportional distribution.'
+				"You can update the total rent amount at any time in the house settings. CoRent will automatically recalculate each member's share based on the new total while maintaining the same proportional distribution."
 		},
 		{
 			question: 'Is my data secure?',
@@ -74,12 +74,15 @@
 						onclick={() => toggleFaq(index)}
 					>
 						<h3 class="pr-4 text-lg font-semibold">{faq.question}</h3>
-						<span class="shrink-0 text-2xl transition-transform" class:rotate-45={openIndex === index}>
+						<span
+							class="shrink-0 text-2xl transition-transform"
+							class:rotate-45={openIndex === index}
+						>
 							+
 						</span>
 					</button>
 					{#if openIndex === index}
-						<div class="mt-3 animate-fade-in">
+						<div class="animate-fade-in mt-3">
 							<p class="leading-relaxed">{faq.answer}</p>
 						</div>
 					{/if}

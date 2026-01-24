@@ -1,8 +1,13 @@
 <script lang="ts">
 	import '$lib/layout.css';
-  import { goto } from '$app/navigation';
-  import { resolve } from '$app/paths';
-	import { getMembers, getMemberById, getMemberData, deleteMemberById } from '$lib/services/memberApi';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
+	import {
+		getMembers,
+		getMemberById,
+		getMemberData,
+		deleteMemberById
+	} from '$lib/services/memberApi';
 	import { addMemberRoom, deleteMemberRoomById } from '$lib/services/memberRoomApi';
 	import { getRooms } from '$lib/services/roomApi';
 	import type { MemberRow, RoomRow } from '$lib/types';
@@ -14,16 +19,16 @@
 	let rooms: RoomRow[] = $state([]);
 	let selectedRooms: RoomRow[] | null = $state([]);
 
-  let member: MemberRow = $state()
+	let member: MemberRow = $state();
 	let member_id: string | null = null;
 
 	onMount(async () => {
-    member = await getMemberData();
+		member = await getMemberData();
 		members = await getMembers();
 		rooms = await getRooms();
-    if (!member.house_id) {
-      goto(resolve('/new-user'))
-    }
+		if (!member.house_id) {
+			goto(resolve('/new-user'));
+		}
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
