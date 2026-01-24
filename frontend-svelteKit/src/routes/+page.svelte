@@ -1,4 +1,4 @@
-<div class="flex mt-20 w-full flex-col items-center justify-center px-4">
+<div class="mt-20 flex w-full flex-col items-center justify-center px-4">
 	<div class="w-full max-w-4xl text-center">
 		<div class="mb-12">
 			<h1 class="mb-6 text-6xl font-black md:text-8xl">
@@ -28,16 +28,17 @@
 		</div>
 
 		<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-			<a href="/login" class="btn-flip" data-back="Log In" data-front="Log In"></a>
-			<a href="/signup" class="btn-flip" data-back="Sign Up" data-front="Sign Up"></a>
+			<a href="/login" class="btn-flip" data-back="Log In" data-front="Log In" title="Log In"></a>
+			<a href="/signup" class="btn-flip" data-back="Sign Up" data-front="Sign Up" title="Log In"
+			></a>
 		</div>
 
 		<div class="mt-8 flex justify-center gap-6 text-sm">
-      <div class="w-1/2"></div>
-			<a href="/about" class="hover:underline text-right">About</a>
+			<div class="w-1/2"></div>
+			<a href="/about" class="w-1/2 text-right hover:underline">About</a>
 			<span>•</span>
-			<a href="/faq" class="hover:underline text-left">FAQ</a>
-      <div class="w-1/2"></div>
+			<a href="/faq" class="text-left hover:underline">FAQ</a>
+			<div class="w-1/2"></div>
 		</div>
 	</div>
 </div>

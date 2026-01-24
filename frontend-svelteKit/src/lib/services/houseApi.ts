@@ -16,7 +16,7 @@ export async function getHouses(): Promise<HouseRow[]> {
 	return members;
 }
 
-export async function getHouseById(house_id: string): Promise<HouseRow> {
+export async function getHouseById(house_id: number): Promise<HouseRow> {
 	const response = await fetch(`${url}/house/${house_id}`);
 
 	const json = await response.json();
@@ -29,16 +29,20 @@ export async function getHouseById(house_id: string): Promise<HouseRow> {
 	return house;
 }
 
-export async function addHouse(house_name: string, house_rent: number, house_m2: number): Promise<HouseRow> {
+export async function addHouse(
+	house_name: string,
+	house_rent: number,
+	house_m2: number
+): Promise<HouseRow> {
 	const response = await fetch(`${url}/house`, {
-    method: "POST",
+		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
 			house_name,
 			house_rent,
-      house_m2,
+			house_m2
 		})
 	});
 	if (!response.ok) throw new Error('post faled');
@@ -46,4 +50,3 @@ export async function addHouse(house_name: string, house_rent: number, house_m2:
 	const data = json.data;
 	return data;
 }
-

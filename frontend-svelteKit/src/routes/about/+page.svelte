@@ -107,7 +107,8 @@
 	<section class="p-6 text-center">
 		<h2 class="mb-4 text-2xl font-bold">Ready to Split Fairly?</h2>
 		<p class="mb-6">
-			Create your account or explore the FAQ to learn more about how CoRent can help your collective.
+			Create your account or explore the FAQ to learn more about how CoRent can help your
+			collective.
 		</p>
 		<div class="flex justify-center gap-4">
 			<a
