@@ -38,7 +38,7 @@ export async function getMemberData(): Promise<MemberRow> {
 	const headers = getAuthHeaders();
 	const response = await fetch(`${url}/member/0`, { headers });
 	const json = await response.json();
-  const body = await json.data;
+	const body = await json.data;
 	return body;
 }
 
@@ -62,7 +62,7 @@ export async function getMembers(): Promise<MemberRow[]> {
 
 export async function getMemberById(member_id: string): Promise<MemberRow> {
 	const headers = getAuthHeaders();
-	const response = await fetch(`${url}/member/${member_id}`, {headers});
+	const response = await fetch(`${url}/member/${member_id}`, { headers });
 
 	const json = await response.json();
 
@@ -90,7 +90,7 @@ export async function addMember(member_name: string, password: string, confirm_p
 	});
 	if (!response.ok) throw new Error('post faled');
 	const json = await response.json();
-  console.log(response)
+	console.log(response);
 	const data = json.data.member_added;
 	return data;
 }

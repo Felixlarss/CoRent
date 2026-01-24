@@ -1,7 +1,7 @@
 <script lang="ts">
-  import LoginForm from "$lib/LoginForm.svelte";
+	import LoginForm from '$lib/LoginForm.svelte';
 </script>
 
 <div>
-  <LoginForm signUpForm={false} />
+	<LoginForm signUpForm={false} />
 </div>

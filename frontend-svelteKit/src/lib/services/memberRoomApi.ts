@@ -1,4 +1,4 @@
-import { getAuthHeaders } from "./memberApi";
+import { getAuthHeaders } from './memberApi';
 const url = import.meta.env.VITE_API_URL;
 
 export async function addMemberRoom(room_id: string, member_id: string) {
@@ -12,7 +12,9 @@ export async function addMemberRoom(room_id: string, member_id: string) {
 		})
 	});
 	if (!response.ok) throw new Error('post faled');
-	return response;
+	const json = await response.json();
+	const data = json.data;
+	return data;
 }
 
 export async function editMemberRoomById(member_id: string, room_id: string) {

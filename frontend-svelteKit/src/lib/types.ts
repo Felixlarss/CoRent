@@ -3,7 +3,8 @@ export type MemberRow = {
 	member_id: string;
 	member_m2: string;
 	member_rent: string;
-  house_id: number;
+	house_id: number;
+	ok: boolean;
 };
 
 export type MemberAuthResponse =
@@ -12,9 +13,11 @@ export type MemberAuthResponse =
 
 export type MemberRowResponse = { ok: true; data: MemberRow } | { ok: false; error: string };
 
+// { ok: true, data: { Room_added: { room_id: rows[0].room_id } } }
+
 export type HouseRow = {
 	house_name: string;
-	house_id?: string;
+	house_id: number;
 	house_m2: string;
 	house_rent: string;
 };
