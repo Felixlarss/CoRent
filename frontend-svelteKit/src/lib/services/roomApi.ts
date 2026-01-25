@@ -1,5 +1,5 @@
 import type { RoomRow } from '$lib/types';
-import { getAuthHeaders } from './memberApi';
+import { getAuthHeaders } from './auth';
 const url = import.meta.env.VITE_API_URL;
 const noRoomErr = 'Error, No room Found';
 

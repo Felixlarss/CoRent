@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { getHouseById } from '$lib/services/houseApi';
+	import { houseDataToPdf } from '$lib/services/exportToPdf';
 
 	let members: MemberRow[] = $state([]);
 	let selectedMember: MemberRow | null = $state(null);
@@ -28,7 +29,7 @@
 	<div class="flex w-full flex-col justify-center text-white">
 		<div class="flex flex-col items-center pt-5">
 			<p class="flex justify-center pb-5 text-4xl font-bold">{house?.house_name}</p>
-			<ul class="flex flex-col space-y-5 p-4 align-middle sm:w-full md:w-1/3">
+			<ul class="flex flex-col items-center space-y-5 p-4 align-middle sm:w-full md:w-1/3">
 				<p class="flex w-full text-start">House Key: {house_id}</p>
 				{#each members as m (m.member_id)}
 					<button
@@ -47,6 +48,11 @@
 						{/if}
 					</button>
 				{/each}
+				<button
+					type="button"
+					class="mb-5 w-min cursor-pointer px-4 py-2 font-bold whitespace-nowrap"
+					onclick={houseDataToPdf}>Save as PDF</button
+				>
 			</ul>
 		</div>
 
