@@ -3,7 +3,10 @@ import { getHouses, getHouseById } from '../../src/lib/services/houseApi';
 import type { HouseRow } from '../../src/lib/types';
 
 // Mock the environment variables
-const MOCK_API_URL = 'http://localhost:3000/api';
+// if using live backend
+const MOCK_API_URL = 'https://corent-production.up.railway.app/api';
+// else use localhos
+// const MOCK_API_URL = 'http://localhost:3000/api';
 vi.stubGlobal('import.meta.env', {
 	VITE_API_URL: MOCK_API_URL
 });
