@@ -4,9 +4,9 @@ export type MemberRow = {
 	member_m2: string;
 	member_rent: string;
 	house_id: number;
-	ok: boolean;
-	status: number;
-	error: { ok: false; error: string };
+	ok?: boolean;
+	status?: number;
+	error?: { ok: false; error: string };
 };
 
 export type MemberAuthResponse =
@@ -20,8 +20,8 @@ export type MemberRowResponse = { ok: true; data: MemberRow } | { ok: false; err
 export type HouseRow = {
 	house_name: string;
 	house_id: number;
-	house_m2: string;
-	house_rent: string;
+	house_m2: number;
+	house_rent: number;
 };
 
 export interface Member {

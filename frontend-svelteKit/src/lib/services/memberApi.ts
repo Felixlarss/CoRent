@@ -1,16 +1,8 @@
 import type { MemberAuthResponse, MemberRow } from '../types.ts';
+import { getAuthHeaders } from './auth.ts';
 
 const url = import.meta.env.VITE_API_URL;
 const noMemberErr = 'Error, No Member Found';
-
-// auth headers
-
-export function getAuthHeaders(): Headers {
-	const token: string | null = localStorage.getItem('auth_token');
-	const headers = new Headers({ 'Content-Type': 'application/json' });
-	if (token) headers.set('authorization', token);
-	return headers;
-}
 
 // confirm member
 
@@ -34,12 +26,11 @@ export async function confirmLogin(
 
 // get all member data
 
-export async function getMemberData(): Promise<MemberRow> {
+export async function getMemberData(): Promise<MemberRowResponse> {
 	const headers = getAuthHeaders();
 	const response = await fetch(`${url}/member/0`, { headers });
-	const json = await response.json();
-	const body = await json.data;
-	return body;
+	const json = (await response.json()) as MemberRowResponse;
+	return json;
 }
 
 // get all members

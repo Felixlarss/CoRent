@@ -1,10 +1,12 @@
 import type { HouseRow } from '../types.ts';
+import { getAuthHeaders } from './auth.js';
 
 const url = import.meta.env.VITE_API_URL;
 const noHouseErr = 'Error, No House Found';
 
 export async function getHouses(): Promise<HouseRow[]> {
-	const response = await fetch(`${url}/Houses`);
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/houses`, { headers });
 
 	const json = await response.json();
 
@@ -17,7 +19,8 @@ export async function getHouses(): Promise<HouseRow[]> {
 }
 
 export async function getHouseById(house_id: number): Promise<HouseRow> {
-	const response = await fetch(`${url}/house/${house_id}`);
+	const headers = getAuthHeaders();
+	const response = await fetch(`${url}/house/${house_id}`, { headers });
 
 	const json = await response.json();
 
