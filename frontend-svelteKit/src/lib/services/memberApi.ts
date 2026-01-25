@@ -1,4 +1,4 @@
-import type { MemberAuthResponse, MemberRow } from '../types.ts';
+import type { MemberAuthResponse, MemberRow, MemberRowResponse } from '../types.ts';
 import { getAuthHeaders } from './auth.ts';
 
 const url = import.meta.env.VITE_API_URL;

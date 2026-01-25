@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RoomRow, MemberRow, HouseRow } from '$lib/types';
+	import type { RoomRow, HouseRow, MemberRowResponse } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	import { addMemberRoom } from '../../lib/services/memberRoomApi.js';
@@ -16,20 +16,21 @@
 	let rooms: RoomRow[] = $state([]);
 	let room_ids: string[] = $state([]);
 
-	let member: MemberRow | undefined = $state(undefined);
+	let member: MemberRowResponse | undefined = $state(undefined);
 
 	let submitted: boolean = $state(false);
 
 	onMount(async () => {
 		member = await getMemberData();
-		if (member?.house_id) {
-			goto(resolve('/home'));
+		if (member.ok && member?.data.house_id) {
+			await goto(resolve('/home'));
 		}
 	});
 
 	async function handleSubmit1(event: SubmitEvent) {
 		event.preventDefault();
-		if (!member?.house_id) {
+		member = await getMemberData();
+		if (member.ok && !member?.data.house_id) {
 			rooms = await getRoomsById(house_id);
 			house = await getHouseById(house_id);
 			submitted = true;
@@ -38,12 +39,13 @@
 
 	async function handleSubmit2(event: SubmitEvent) {
 		event.preventDefault();
-		if (!member?.house_id) {
+		member = await getMemberData();
+		if (member.ok && !member?.data.house_id) {
 			room_ids.forEach((r) => {
-				if (member) addMemberRoom(r, member?.member_id);
+				if (member!.ok) addMemberRoom(r, member!.data.member_id);
 			});
 		}
-		goto(resolve('/home'));
+		await goto(resolve('/home'));
 	}
 </script>
 

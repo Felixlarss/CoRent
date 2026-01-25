@@ -10,7 +10,7 @@
 	} from '$lib/services/memberApi';
 	import { addMemberRoom, deleteMemberRoomById } from '$lib/services/memberRoomApi';
 	import { getRooms } from '$lib/services/roomApi';
-	import type { MemberRow, RoomRow } from '$lib/types';
+	import type { MemberRow, MemberRowResponse, RoomRow } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	let members: MemberRow[] = $state([]);
@@ -19,14 +19,17 @@
 	let rooms: RoomRow[] = $state([]);
 	let selectedRooms: RoomRow[] | null = $state([]);
 
-	let member: MemberRow = $state();
-	let member_id: string | null = null;
+	let member: MemberRowResponse | undefined = $state();
+	let member_id: string | undefined = $state();
+
+	let house_id: number | undefined = $state();
 
 	onMount(async () => {
 		member = await getMemberData();
 		members = await getMembers();
 		rooms = await getRooms();
-		if (!member.house_id) {
+		if (member.ok) house_id = member.data.house_id;
+		if (house_id) {
 			goto(resolve('/new-user'));
 		}
 	});
