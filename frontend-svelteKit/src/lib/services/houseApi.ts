@@ -1,5 +1,5 @@
-import type { HouseRow } from '../types.ts';
-import { getAuthHeaders } from './auth.js';
+import type { HouseRow } from '../types';
+import { getAuthHeaders } from './auth';
 
 const url = import.meta.env.VITE_API_URL;
 const noHouseErr = 'Error, No House Found';

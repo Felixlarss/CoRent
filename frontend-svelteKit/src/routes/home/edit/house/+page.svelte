@@ -10,12 +10,14 @@
 	let house: HouseRow | null = $state(null);
 	let house_id: number | null = $state(null);
 	let rooms: RoomRow[] = $state([]);
-	let member: MemberRow = $state();
+	let member: MemberRow | undefined = $state(undefined);
 
 	onMount(async () => {
 		member = await getMemberData();
-		house_id = member.house_id;
-		house = await getHouseById(member?.house_id);
+		if (member) {
+			house_id = member.data.house_id;
+			house = await getHouseById(member.data.house_id);
+		}
 		rooms = await getRooms();
 		if (!house_id) {
 			goto(resolve('/new-user'));
