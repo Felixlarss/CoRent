@@ -8,6 +8,17 @@ import type {
 } from '../models/types.ts';
 import bcrypt from 'bcryptjs';
 
+function validatePassword(password: string): boolean {
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumber = /\d/.test(password);
+
+  return (
+    password.length >= minLength && hasUpperCase && hasLowerCase && hasNumber
+  );
+}
+
 // get memberid from body
 
 function getMemberIdFromBody(body: { member: Partial<MemberRow> }) {
@@ -66,10 +77,16 @@ export const createMember = async (req: Request, res: Response) => {
       password: string;
       confirm_password: string;
     };
+
     if (password !== confirm_password) {
       return res
         .status(422)
         .json({ member_name, error: 'password does not match' });
+    } else if (
+      !validatePassword(password) ||
+      !validatePassword(confirm_password)
+    ) {
+      return res.status(401).json('password requirements not met');
     }
     const rows = await memberService.createMember(member_name, password);
     console.log(rows);

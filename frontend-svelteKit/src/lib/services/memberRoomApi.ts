@@ -1,4 +1,4 @@
-import { getAuthHeaders } from './memberApi';
+import { getAuthHeaders } from './auth';
 const url = import.meta.env.VITE_API_URL;
 
 export async function addMemberRoom(room_id: string, member_id: string) {

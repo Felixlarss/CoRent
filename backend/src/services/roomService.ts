@@ -23,7 +23,7 @@ export const getAllRooms = async (
   }
 };
 
-export const getRoomsById = async (
+export const getRoomsByHouseId = async (
   room_house_id: string,
 ): Promise<Result<Room[]>> => {
   try {
@@ -78,4 +78,4 @@ RETURNING room_id
   }
 };
 
-export default { getAllRooms, getRoomById, addRoom, getRoomsById };
+export default { getAllRooms, getRoomById, addRoom, getRoomsByHouseId };

@@ -11,6 +11,7 @@
 	let error: { error: unknown } = $state({ error: '' });
 	let { signUpForm = false }: Props = $props();
 	let loginRedirect: 'Loggin in...' | null = $state(null);
+	let signUpConfirmed: 'signUp Confirmed' | null = $state(null);
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
@@ -18,7 +19,6 @@
 			// signUpForm
 			const create_res = await addMember(member_name, password, confirmPassword);
 			if (!create_res.ok) error.error = create_res.error;
-			console.log(password);
 		} else {
 			// logIn form
 			const confirm_response = await confirmLogin(member_name, password);
@@ -50,32 +50,22 @@
 		{#if signUpForm}
 			<input bind:value={confirmPassword} placeholder="Repeat password" type="password" required />
 		{/if}
-		{#if error.error}
-			<p class="text-sm text-wrap text-red-500">
-				{error.error}
-			</p>
-		{/if}
-		{#if loginRedirect}
-			<p class="text-sm text-wrap text-green-500">
-				{loginRedirect}
-			</p>
-		{/if}
+		<p class="text-sm text-wrap">
+			{error.error ? error.error : ''}
+		</p>
+		<p class="text-sm text-wrap">
+			{loginRedirect ? loginRedirect : signUpConfirmed ? signUpConfirmed : ''}
+		</p>
 		<div class="flex justify-between">
-			<button
-				type="submit"
-				class="w-fit p-2"
-				onclick={() => {
-					if (signUpForm) {
-						alert('SignUp Confirmed');
-					}
-				}}>{signUpForm ? 'Sign up' : 'Log in'}</button
+			<button type="submit" class="w-fit p-2" onclick={() => {}}
+				>{signUpForm ? 'Sign up' : 'Log in'}</button
 			>
 			<a
 				type="button"
 				onclick={() => {
 					signUpForm = !signUpForm;
 				}}
-				class="none bg w-fit cursor-pointer p-2 text-amber-600 hover:underline"
+				class="none bg w-fit cursor-pointer p-2 hover:underline"
 				>{signUpForm ? 'Log in' : 'Sign up'}</a
 			>
 		</div>

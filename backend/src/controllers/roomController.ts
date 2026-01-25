@@ -17,7 +17,7 @@ export const getRoomsById = async (req: Request, res: Response) => {
   try {
     const { room_house_id } = req.params;
     if (!room_house_id) throw new Error('no rooms found');
-    const rows = await roomService.getRoomsById(room_house_id);
+    const rows = await roomService.getRoomsByHouseId(room_house_id);
     return res.status(201).json(rows);
   } catch (error) {
     return res.status(500).json({ error });
