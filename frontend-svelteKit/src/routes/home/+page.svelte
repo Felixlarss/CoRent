@@ -25,7 +25,7 @@
 			house = await getHouseById(house_id);
 		}
 		if (!house_id) {
-			goto(resolve('/new-user'));
+			await goto(resolve('/new-user'));
 		}
 		loading = false;
 	});

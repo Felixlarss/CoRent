@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RoomRow, MemberRow, HouseRow, MemberRowResponse } from '$lib/types';
+	import type { RoomRow, HouseRow, MemberRowResponse } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	import { addMemberRoom } from '../../lib/services/memberRoomApi.js';
@@ -23,7 +23,7 @@
 	onMount(async () => {
 		member = await getMemberData();
 		if (member.ok && member?.data.house_id) {
-			goto(resolve('/home'));
+			await goto(resolve('/home'));
 		}
 	});
 
@@ -42,10 +42,10 @@
 		member = await getMemberData();
 		if (member.ok && !member?.data.house_id) {
 			room_ids.forEach((r) => {
-				if (member) addMemberRoom(r, member?.member_id);
+				if (member!.ok) addMemberRoom(r, member!.data.member_id);
 			});
 		}
-		goto(resolve('/home'));
+		await goto(resolve('/home'));
 	}
 </script>
 

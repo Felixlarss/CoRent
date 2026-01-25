@@ -32,7 +32,7 @@
 		if (member.ok) {
 			house_id = member?.data.house_id;
 			if (member?.data.house_id) {
-				goto(resolve('/home'));
+				await goto(resolve('/home'));
 			}
 		}
 	});

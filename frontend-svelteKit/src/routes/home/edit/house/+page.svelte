@@ -24,7 +24,7 @@
 		}
 		rooms = await getRooms();
 		if (!house_id) {
-			goto(resolve('/new-user'));
+			await goto(resolve('/new-user'));
 		}
 		loading = false;
 	});
