@@ -19,7 +19,7 @@
 	onMount(async () => {
 		member = await getMemberData();
 		rooms = await getRooms();
-		if (!member.house_id) {
+		if (member && !member.data.house_id) {
 			goto(resolve('/new-user'));
 		}
 	});
@@ -50,12 +50,12 @@
 	<div class="flex w-full flex-col justify-center">
 		<div class="flex justify-center gap-5">
 			<ul class="flex flex-col space-y-5 align-middle sm:w-full md:w-1/3">
-				<h1 class="m-5 text-center text-4xl">{member.member_name}</h1>
+				<h1 class="m-5 text-center text-4xl">{member.data.member_name}</h1>
 				<div class="flex w-full flex-col px-2 pb-2">
 					<div class="flex w-full justify-center gap-3 pt-3">
 						<div class="highlight hover:none flex w-min flex-col items-start p-2 align-middle">
-							<span class="flex whitespace-nowrap">Rent: {member.member_rent} kr</span>
-							<span class="flex whitespace-nowrap">Area: {member.member_m2} m²</span>
+							<span class="flex whitespace-nowrap">Rent: {member.data.member_rent} kr</span>
+							<span class="flex whitespace-nowrap">Area: {member.data.member_m2} m²</span>
 						</div>
 					</div>
 					<form onsubmit={handleSubmit} class="none my-2 flex w-full justify-center">

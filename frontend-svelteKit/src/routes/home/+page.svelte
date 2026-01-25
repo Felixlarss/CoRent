@@ -17,8 +17,10 @@
 	onMount(async () => {
 		members = await getMembers();
 		member = await getMemberData();
-		house_id = member?.house_id;
-		house = await getHouseById(house_id);
+		if (member) {
+			house_id = member.data.house_id;
+			house = await getHouseById(house_id);
+		}
 		if (!house_id) {
 			goto(resolve('/new-user'));
 		}

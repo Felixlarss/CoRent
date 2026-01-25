@@ -7,6 +7,7 @@ export type MemberRow = {
 	ok?: boolean;
 	status?: number;
 	error?: { ok: false; error: string };
+	data?: MemberRow;
 };
 
 export type MemberAuthResponse =
