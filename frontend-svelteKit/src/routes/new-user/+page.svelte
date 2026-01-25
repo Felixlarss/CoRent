@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { getMemberData } from '$lib/services/memberApi';
-	import type { MemberRow } from '$lib/types';
+	import type { MemberRowResponse } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	let member: MemberRow | null = $state(null);
+	let member: MemberRowResponse | null = $state(null);
 
 	onMount(async () => {
 		member = await getMemberData();
-		if (member?.house_id) {
+		if (member.ok && member?.data.house_id) {
 			goto(resolve('/home'));
 		}
 	});

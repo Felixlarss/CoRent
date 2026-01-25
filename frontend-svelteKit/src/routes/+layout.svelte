@@ -3,11 +3,14 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { onMount } from 'svelte';
 	import { getMemberData } from '$lib/services/memberApi';
-	import type { Member } from '$lib/types';
+	import type { MemberRowResponse } from '$lib/types';
 
-	let member: Member | null = $state(null);
+	let member: MemberRowResponse | null = $state(null);
+	let loading: boolean = $state(true);
+
 	onMount(async () => {
 		member = await getMemberData();
+		loading = false;
 	});
 	let { children } = $props();
 </script>
@@ -20,11 +23,13 @@
 	<div class="flex flex-row items-center justify-center gap-5 p-2 lg:justify-start">
 		<div>
 			<a class="p-2 hover:underline" href={member ? '/profile' : '/about'}
-				>{member ? 'Profile' : 'About'}</a
+				>{loading ? '' : member ? 'Profile' : 'About'}</a
 			>
 		</div>
 		<div>
-			<a class="p-2 hover:underline" href={member ? '/home' : '/faq'}>{member ? 'Home' : 'FAQ'}</a>
+			<a class="p-2 hover:underline" href={member ? '/home' : '/faq'}
+				>{loading ? '' : member ? 'Home' : 'FAQ'}</a
+			>
 		</div>
 		{#if member}
 			<div>

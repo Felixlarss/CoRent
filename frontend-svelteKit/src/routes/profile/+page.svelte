@@ -5,34 +5,37 @@
 	import { getMemberData, deleteMemberById } from '$lib/services/memberApi';
 	import { addMemberRoom, deleteMemberRoomById } from '$lib/services/memberRoomApi';
 	import { getRooms } from '$lib/services/roomApi';
-	import type { MemberRow, RoomRow } from '$lib/types';
+	import type { MemberRowResponse, RoomRow } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	let rooms: RoomRow[] = $state([]);
 	let selectedRooms: RoomRow[] | null = $state([]);
 
-	let member: MemberRow | undefined = $state(undefined);
+	let member: MemberRowResponse | undefined = $state(undefined);
 	let member_id: string | null = null;
 
 	let confirmDelete: boolean = false;
 
+	let loading: boolean = $state(true);
+
 	onMount(async () => {
 		member = await getMemberData();
 		rooms = await getRooms();
-		if (member && !member.data.house_id) {
+		if (member.ok && !member.data.house_id) {
 			goto(resolve('/new-user'));
 		}
+		loading = false;
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		if (member) {
-			await deleteMemberRoomById(member.member_id);
+		if (member && member.ok) {
+			await deleteMemberRoomById(member.data.member_id);
 		}
 		if (member_id === '') throw new Error('no id submitted');
 		for (let i = 0; i < selectedRooms!.length; i++) {
 			const currentRoom = selectedRooms![i];
-			await addMemberRoom(String(currentRoom), member!.member_id);
+			if (member && member.ok) await addMemberRoom(String(currentRoom), member!.data.member_id);
 		}
 		selectedRooms = null;
 		member = await getMemberData();
@@ -40,13 +43,13 @@
 
 	async function handleDelete() {
 		confirmDelete = confirm('confirm delete');
-		if (member && confirmDelete) {
-			await deleteMemberById(member.member_id);
+		if (member && member.ok && confirmDelete) {
+			await deleteMemberById(member.data.member_id);
 		}
 	}
 </script>
 
-{#if member}
+{#if member && member.ok && !loading}
 	<div class="flex w-full flex-col justify-center">
 		<div class="flex justify-center gap-5">
 			<ul class="flex flex-col space-y-5 align-middle sm:w-full md:w-1/3">

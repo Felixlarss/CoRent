@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { RoomRow, MemberRow, HouseRow } from '$lib/types';
+	import type { RoomRow, MemberRow, HouseRow, MemberRowResponse } from '$lib/types';
 	import { onMount } from 'svelte';
 
 	import { addHouse } from '../../lib/services/houseApi.ts';
@@ -18,7 +18,7 @@
 	let room_id: string | Partial<RoomRow> = $state('');
 	let temp_room_id: number = $state(0);
 
-	let member: MemberRow | undefined = $state(undefined);
+	let member: MemberRowResponse | undefined = $state(undefined);
 	let house_id: HouseRow | number = $state(NaN);
 
 	async function addEmptyRoom() {
@@ -29,30 +29,36 @@
 	onMount(async () => {
 		addEmptyRoom();
 		member = await getMemberData();
-		house_id = member?.house_id;
-		if (member?.house_id) {
-			goto(resolve('/home'));
+		if (member.ok) {
+			house_id = member?.data.house_id;
+			if (member?.data.house_id) {
+				goto(resolve('/home'));
+			}
 		}
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		if (!member?.house_id) {
-			house_id = await addHouse(house_name, house_rent, house_m2);
-			rooms.forEach(async (r) => {
-				if (r.room_m2 && member && house_id) {
-					room_id = await addRoom(r.room_name, r.room_m2, house_id.House_added?.house_id);
-					if (r.room_id === '0') await addMemberRoom(room_id.Room_added?.room_id, member.member_id);
-				} else {
-					alert('no room area given!');
-				}
-			});
+		member = await getMemberData();
+		if (member.ok) {
+			if (!member?.data.house_id) {
+				house_id = await addHouse(house_name, house_rent, house_m2);
+				rooms.forEach(async (r) => {
+					if (r.room_m2 && member && house_id) {
+						room_id = await addRoom(r.room_name, r.room_m2, house_id.House_added?.house_id);
+						if (r.room_id === '0')
+							await addMemberRoom(room_id.Room_added?.room_id, member.data.member_id);
+					} else {
+						alert('no room area given!');
+					}
+				});
+			}
 		}
 		await goto(resolve('/home'));
 	}
 </script>
 
-{#if !member?.house_id}
+{#if member && member.ok && !member?.data.house_id}
 	<div class="flex w-full justify-center">
 		<form class="flex flex-col items-center justify-center p-5 sm:w-full md:w-1/5">
 			<h2 class="flex justify-center font-bold">Add A House</h2>
